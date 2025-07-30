@@ -50,28 +50,34 @@ app.use("/auth", authController);
 app.use(isSignedIn); // protect everything below
 app.use("/users/:userId/sessions", sessionController);
 app.use("/users/:userId/milestones", milestoneController);
+const dashboardRoutes = require('./routes/index');
+app.use('/', dashboardRoutes);
+
 
 // Home
 app.get("/", async (req, res) => {
   const userId = req.session.user?._id;
 
   let totalHours = 0;
-  let completedMilestones = 0;
+  let totalMilestones = 0;
+  const nextMilestoneThreshold = 50; // or dynamically based on a roadmap
 
   if (userId) {
     const sessions = await FlightSession.find({ user: userId });
     const milestones = await Milestone.find({ user: userId, status: "Complete" });
 
     totalHours = sessions.reduce((sum, session) => sum + session.duration, 0);
-    completedMilestones = milestones.length;
+    totalMilestones = milestones.length;
   }
 
   res.render("index.ejs", {
     user: req.session.user,
     totalHours,
-    completedMilestones
+    totalMilestones,
+    nextMilestoneThreshold: 50 
   });
 });
+
 
 // Set the port from environment variable or default to 3000
 const port = process.env.PORT ? process.env.PORT : "3000";
