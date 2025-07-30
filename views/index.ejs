@@ -1,33 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home Page</title>
-  <link rel="stylesheet" href="/css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flight Path Journal Dashboard</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" />
+  <link rel="stylesheet" href="/css/dashboard.css" />
 </head>
-<%- include('./partials/_navbar') %>
+<body class="bg-gray-100 min-h-screen">
 
-<div class="container">
-  <h1>Welcome to Flight Path Journal</h1>
+  <%- include('partials/_navbar.ejs') %>
 
-  <% if (user) { %>
-    <p>Hello, <strong><%= user.username %></strong> ✈️</p>
+  <div class="dashboard-container">
+    <h1 class="dashboard-header">Welcome Back, <%= user.username %>!</h1>
 
-    <h2>Your Dashboard</h2>
-    <ul>
-      <li><a href="/users/<%= user._id %>/sessions">📘 View Flight Sessions</a></li>
-      <li><a href="/users/<%= user._id %>/milestones">🏁 View Milestones</a></li>
-    </ul>
+    <!-- Stats -->
+    <div class="stats-section">
+      <div class="stat-box">
+        <div class="stat-label">Total Flight Hours</div>
+        <div id="hoursTotal" class="stat-value">0</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">Milestones Completed</div>
+        <div id="milestoneTotal" class="stat-value">0</div>
+      </div>
+    </div>
 
-    <form action="/auth/sign-out?_method=DELETE" method="POST">
-      <button type="submit">Sign Out</button>
-    </form>
-  <% } else { %>
-    <p>Please <a href="/auth/sign-in">Sign In</a> or <a href="/auth/sign-up">Sign Up</a> to begin tracking your aviation journey.</p>
-  <% } %>
-</div>
+    <!-- Progress Bar -->
+    <div class="progress-section">
+      <div class="progress-label">Progress to Next Milestone</div>
+      <div class="progress-bar-container">
+        <div id="progressBar" class="progress-bar-fill" style="width: 0%;"></div>
+      </div>
+    </div>
+  </div>
 
-  
+  <script src="/js/dashboard.js"></script>
 </body>
 </html>

@@ -1,0 +1,41 @@
+/* dashboard.css */
+
+.dashboard-container {
+  @apply p-6 max-w-4xl mx-auto;
+}
+
+.dashboard-header {
+  @apply text-3xl font-bold mb-6 text-center;
+}
+
+.stats-section {
+  @apply grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8;
+}
+
+.stat-box {
+  @apply bg-white shadow-md rounded-lg p-6 flex flex-col items-center;
+}
+
+.stat-label {
+  @apply text-sm text-gray-600 mb-2;
+}
+
+.stat-value {
+  @apply text-3xl font-semibold text-blue-600;
+}
+
+.progress-section {
+  @apply mt-8;
+}
+
+.progress-label {
+  @apply text-md font-medium mb-2;
+}
+
+.progress-bar-container {
+  @apply w-full h-4 bg-gray-300 rounded-full;
+}
+
+.progress-bar-fill {
+  @apply h-4 bg-blue-500 rounded-full transition-all duration-500 ease-out;
+}

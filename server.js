@@ -13,6 +13,9 @@ const app = express();
 const passUserToView = require("./middleware/pass-user-to-view");
 const isSignedIn = require("./middleware/is-signed-in");
 
+const FlightSession = require("./models/flightSession");
+const Milestone = require("./models/milestone");
+
 // Controllers
 const authController = require("./controllers/auth.js");
 const sessionController = require("./controllers/flightSessions");
@@ -49,8 +52,25 @@ app.use("/users/:userId/sessions", sessionController);
 app.use("/users/:userId/milestones", milestoneController);
 
 // Home
-app.get("/", (req, res) => {
-  res.render("index.ejs", { user: req.session.user });
+app.get("/", async (req, res) => {
+  const userId = req.session.user?._id;
+
+  let totalHours = 0;
+  let completedMilestones = 0;
+
+  if (userId) {
+    const sessions = await FlightSession.find({ user: userId });
+    const milestones = await Milestone.find({ user: userId, status: "Complete" });
+
+    totalHours = sessions.reduce((sum, session) => sum + session.duration, 0);
+    completedMilestones = milestones.length;
+  }
+
+  res.render("index.ejs", {
+    user: req.session.user,
+    totalHours,
+    completedMilestones
+  });
 });
 
 // Set the port from environment variable or default to 3000

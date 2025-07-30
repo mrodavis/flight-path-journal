@@ -9,15 +9,15 @@
     <%- include('../partials/_navbar') %>
 
 <h1>Session on <%= session.date.toDateString() %></h1>
-<p><strong>Duration:</strong> <%= session.duration %> minutes</p>
+<p><strong>Duration:</strong> <%= session.duration %> hours</p>
 <p><strong>Focus Area:</strong> <%= session.focusArea %></p>
 <p><strong>Notes:</strong> <%= session.notes || 'N/A' %></p>
 
-<a href="/users/<%= userId %>/sessions/<%= session._id %>/edit">Edit</a>
-
-<form action="/users/<%= userId %>/sessions/<%= session._id %>?_method=DELETE" method="POST">
+<a href="/users/<%= userId %>/sessions/<%= session._id %>/edit">Edit</a> |
+<form action="/users/<%= userId %>/sessions/<%= session._id %>?_method=DELETE" method="POST" style="display:inline;">
   <button type="submit">Delete</button>
 </form>
-
+<br><br>
+<a href="/users/<%= userId %>/sessions">Back to Flight Sessions</a>
 </body>
 </html>

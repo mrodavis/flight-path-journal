@@ -6,7 +6,7 @@
     <title>Milestones</title>
 </head>
 <body>
-     <%- include('../partials/_navbar') %>
+     <!-- <%- include('../partials/_navbar') %>
     <h1>Milestones</h1>
 
 <a href="/users/<%= userId %>/milestones/new">Add Milestone</a>
@@ -35,7 +35,21 @@
       </tr>
     <% }); %>
   </tbody>
-</table>
+</table> -->
+<%- include('../partials/_navbar') %>
 
+<h1>Milestones</h1>
+
+<ul>
+  <% milestones.forEach(m => { %>
+    <li>
+      <a href="/users/<%= userId %>/milestones/<%= m._id %>">
+        <strong><%= m.type %></strong> - <%= m.status %>
+      </a>
+    </li>
+  <% }) %>
+</ul>
+
+<a href="/users/<%= userId %>/milestones/new">Add New Milestone</a>
 </body>
 </html>
