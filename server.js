@@ -10,7 +10,8 @@ const morgan = require("morgan");
 // Set the port from environment variable or default to 3000
 const port = process.env.PORT ? process.env.PORT : "3000";
 const authController = require("./controllers/auth.js");
-
+const sessionController = require("./controllers/flightSessions");
+const milestoneController = require("./controllers/milestones");
 
 mongoose.connect(process.env.MONGODB_URI);
 
