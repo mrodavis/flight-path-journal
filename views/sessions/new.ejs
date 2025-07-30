@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <%- include('../partials/_navbar') %>
+
+<h1>New Flight Session</h1>
+
+<form action="/users/<%= userId %>/sessions" method="POST">
+  <label>Date:</label>
+  <input type="date" name="date" required><br>
+
+  <label>Duration (minutes):</label>
+  <input type="number" name="duration" required><br>
+
+  <label>Focus Area:</label>
+  <input type="text" name="focusArea" required><br>
+
+  <label>Notes:</label>
+  <textarea name="notes"></textarea><br>
+
+  <button type="submit">Create Session</button>
+</form>
+
+</body>
+</html>

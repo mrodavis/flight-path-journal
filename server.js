@@ -1,41 +1,60 @@
 const dotenv = require("dotenv");
 dotenv.config();
-const express = require("express");
-const app = express();
 
+const express = require("express");
+const session = require("express-session");
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const morgan = require("morgan");
 
-// Set the port from environment variable or default to 3000
-const port = process.env.PORT ? process.env.PORT : "3000";
+const app = express();
+
+// Middleware
+const passUserToView = require("./middleware/pass-user-to-view");
+const isSignedIn = require("./middleware/is-signed-in");
+
+// Controllers
 const authController = require("./controllers/auth.js");
 const sessionController = require("./controllers/flightSessions");
 const milestoneController = require("./controllers/milestones");
 
-mongoose.connect(process.env.MONGODB_URI);
 
+
+// DB Connection
+mongoose.connect(process.env.MONGODB_URI);
 mongoose.connection.on("connected", () => {
   console.log(`Connected to MongoDB ${mongoose.connection.name}.`);
 });
 
-// Middleware to parse URL-encoded data from forms
+// Express Config
 app.use(express.urlencoded({ extended: false }));
-// Middleware for using HTTP verbs such as PUT or DELETE
 app.use(methodOverride("_method"));
-// Morgan for logging HTTP requests
-app.use(morgan('dev'));
+app.use(morgan("dev"));
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 
+// Static Files + Auth Context
+app.use(express.static("public"));
+app.use(passUserToView);
 
+// Routes
 app.use("/auth", authController);
-// server.js
+app.use(isSignedIn); // protect everything below
+app.use("/users/:userId/sessions", sessionController);
+app.use("/users/:userId/milestones", milestoneController);
 
-// GET /
-app.get("/", async (req, res) => {
-  res.render('index.ejs');
+// Home
+app.get("/", (req, res) => {
+  res.render("index.ejs", { user: req.session.user });
 });
 
-
+// Set the port from environment variable or default to 3000
+const port = process.env.PORT ? process.env.PORT : "3000";
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`);
 });

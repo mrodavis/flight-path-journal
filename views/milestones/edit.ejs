@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+     <%- include('../partials/_navbar') %>
+    <h1>Edit Milestone</h1>
+
+<form action="/users/<%= userId %>/milestones/<%= milestone._id %>?_method=PUT" method="POST">
+  <label for="type">Type:</label>
+  <input type="text" name="type" value="<%= milestone.type %>" required /><br>
+
+  <label for="description">Description:</label><br>
+  <textarea name="description"><%= milestone.description %></textarea><br>
+
+  <label for="date">Date:</label>
+  <input type="date" name="date" value="<%= milestone.date ? milestone.date.toISOString().split('T')[0] : '' %>" /><br>
+
+  <label for="status">Status:</label>
+  <select name="status">
+    <option value="Pending" <%= milestone.status === 'Pending' ? 'selected' : '' %>>Pending</option>
+    <option value="Complete" <%= milestone.status === 'Complete' ? 'selected' : '' %>>Complete</option>
+  </select><br>
+
+  <button type="submit">Update</button>
+  <a href="/users/<%= userId %>/milestones">Cancel</a>
+</form>
+
+</body>
+</html>

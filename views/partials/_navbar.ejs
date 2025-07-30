@@ -1,0 +1,13 @@
+<nav class="navbar">
+  <div class="logo">
+    <a href="/">Home</a>
+  </div>
+  <div class="links">
+    <% if (user && user._id) { %>
+      <a href="/users/<%= user._id %>/sessions">✈️My Sessions🛩️</a>
+      <a href="/auth/sign-out">Sign Out</a>
+    <% } else { %>
+      <a href="/auth/sign-in">Sign In</a>
+    <% } %>
+  </div>
+</nav>

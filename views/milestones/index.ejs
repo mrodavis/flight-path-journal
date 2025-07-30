@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Milestones</title>
+</head>
+<body>
+     <%- include('../partials/_navbar') %>
+    <h1>Milestones</h1>
+
+<a href="/users/<%= userId %>/milestones/new">Add Milestone</a>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Status</th>
+      <th>Date</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% milestones.forEach(milestone => { %>
+      <tr>
+        <td><a href="/users/<%= userId %>/milestones/<%= milestone._id %>"><%= milestone.type %></a></td>
+        <td><%= milestone.status %></td>
+        <td><%= milestone.date ? milestone.date.toDateString() : 'N/A' %></td>
+        <td>
+          <a href="/users/<%= userId %>/milestones/<%= milestone._id %>/edit">Edit</a>
+          <form action="/users/<%= userId %>/milestones/<%= milestone._id %>?_method=DELETE" method="POST" style="display:inline;">
+            <button type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+    <% }); %>
+  </tbody>
+</table>
+
+</body>
+</html>

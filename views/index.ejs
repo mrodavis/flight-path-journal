@@ -1,11 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home Page</title>
-  </head>
-  <body>
-    <h1>Welcome to the app!</h1>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home Page</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<%- include('./partials/_navbar') %>
+
+<div class="container">
+  <h1>Welcome to Flight Path Journal</h1>
+
+  <% if (user) { %>
+    <p>Hello, <strong><%= user.username %></strong> ✈️</p>
+
+    <h2>Your Dashboard</h2>
+    <ul>
+      <li><a href="/users/<%= user._id %>/sessions">📘 View Flight Sessions</a></li>
+      <li><a href="/users/<%= user._id %>/milestones">🏁 View Milestones</a></li>
+    </ul>
+
+    <form action="/auth/sign-out?_method=DELETE" method="POST">
+      <button type="submit">Sign Out</button>
+    </form>
+  <% } else { %>
+    <p>Please <a href="/auth/sign-in">Sign In</a> or <a href="/auth/sign-up">Sign Up</a> to begin tracking your aviation journey.</p>
+  <% } %>
+</div>
+
+  
+</body>
 </html>

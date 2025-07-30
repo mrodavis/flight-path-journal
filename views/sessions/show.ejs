@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <%- include('../partials/_navbar') %>
+
+<h1>Session on <%= session.date.toDateString() %></h1>
+<p><strong>Duration:</strong> <%= session.duration %> minutes</p>
+<p><strong>Focus Area:</strong> <%= session.focusArea %></p>
+<p><strong>Notes:</strong> <%= session.notes || 'N/A' %></p>
+
+<a href="/users/<%= userId %>/sessions/<%= session._id %>/edit">Edit</a>
+
+<form action="/users/<%= userId %>/sessions/<%= session._id %>?_method=DELETE" method="POST">
+  <button type="submit">Delete</button>
+</form>
+
+</body>
+</html>

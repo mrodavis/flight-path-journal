@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= milestone.type %></title>
+</head>
+<body>
+     <%- include('../partials/_navbar') %>
+    <h1><%= milestone.type %></h1>
+
+<p><strong>Status:</strong> <%= milestone.status %></p>
+<p><strong>Date:</strong> <%= milestone.date ? milestone.date.toDateString() : 'N/A' %></p>
+<p><strong>Description:</strong> <%= milestone.description || 'No description provided.' %></p>
+
+<a href="/users/<%= userId %>/milestones/<%= milestone._id %>/edit">Edit</a> |
+<form action="/users/<%= userId %>/milestones/<%= milestone._id %>?_method=DELETE" method="POST" style="display:inline;">
+  <button type="submit">Delete</button>
+</form>
+<br><br>
+<a href="/users/<%= userId %>/milestones">Back to List</a>
+
+</body>
+</html>
