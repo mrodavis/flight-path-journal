@@ -3,12 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Session on <%= session.date.toDateString() %></title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <%- include('../partials/_navbar') %>
-
+<main class="">
 <h1>Session on <%= session.date.toDateString() %></h1>
+<section>
+<div id="flightCard">
 <p><strong>Duration:</strong> <%= session.duration %> hours</p>
 <p><strong>Focus Area:</strong> <%= session.focusArea %></p>
 <p><strong>Notes:</strong> <%= session.notes || 'N/A' %></p>
@@ -17,7 +22,10 @@
 <form action="/users/<%= userId %>/sessions/<%= session._id %>?_method=DELETE" method="POST" style="display:inline;">
   <button type="submit">Delete</button>
 </form>
+</div>
 <br><br>
 <a href="/users/<%= userId %>/sessions">Back to Flight Sessions</a>
+</section>
+</main>
 </body>
 </html>

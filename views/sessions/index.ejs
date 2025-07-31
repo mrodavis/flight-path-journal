@@ -3,24 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Flight Sessions</title>
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <%- include('../partials/_navbar') %>
-
+<main class="">
 <h1>Flight Sessions</h1>
-
+<section>
+<div id="flightCard">
 <ul>
   <% sessions.forEach(s => { %>
+    <div id="slot">
+    <h2 class=""><strong><%= s.date.toDateString() %></strong> - <%= s.focusArea %></h2>
     <li>
       <a href="/users/<%= userId %>/sessions/<%= s._id %>">
         <strong><%= s.date.toDateString() %></strong> - <%= s.focusArea %>
       </a>
     </li>
+    </div>
   <% }) %>
 </ul>
-
+</div>
 <a href="/users/<%= userId %>/sessions/new">Add New Session</a>
-
+</section>
+</main>
 </body>
 </html>

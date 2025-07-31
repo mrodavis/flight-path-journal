@@ -4,52 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Milestones</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-     <!-- <%- include('../partials/_navbar') %>
-    <h1>Milestones</h1>
 
-<a href="/users/<%= userId %>/milestones/new">Add Milestone</a>
-
-<table>
-  <thead>
-    <tr>
-      <th>Type</th>
-      <th>Status</th>
-      <th>Date</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% milestones.forEach(milestone => { %>
-      <tr>
-        <td><a href="/users/<%= userId %>/milestones/<%= milestone._id %>"><%= milestone.type %></a></td>
-        <td><%= milestone.status %></td>
-        <td><%= milestone.date ? milestone.date.toDateString() : 'N/A' %></td>
-        <td>
-          <a href="/users/<%= userId %>/milestones/<%= milestone._id %>/edit">Edit</a>
-          <form action="/users/<%= userId %>/milestones/<%= milestone._id %>?_method=DELETE" method="POST" style="display:inline;">
-            <button type="submit">Delete</button>
-          </form>
-        </td>
-      </tr>
-    <% }); %>
-  </tbody>
-</table> -->
 <%- include('../partials/_navbar') %>
-
+<main>
 <h1>Milestones</h1>
-
+<section>
+<div id="flightCard">
 <ul>
   <% milestones.forEach(m => { %>
+    <div id="slot">
+    <h2 class="text-xl font-semibold text-gray-700 mb-2"><strong><%= m.type %></strong> - <%= m.status %></h2>
     <li>
       <a href="/users/<%= userId %>/milestones/<%= m._id %>">
         <strong><%= m.type %></strong> - <%= m.status %>
       </a>
     </li>
+</div>
   <% }) %>
 </ul>
+</div>
 
 <a href="/users/<%= userId %>/milestones/new">Add New Milestone</a>
+</section>
+</main>
 </body>
 </html>

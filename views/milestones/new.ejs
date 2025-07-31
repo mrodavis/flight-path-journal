@@ -4,34 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New Milestone</title>
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-     <!-- <%- include('../partials/_navbar') %>
-    <h1>New Milestone</h1>
 
-<form action="/users/<%= userId %>/milestones" method="POST">
-  <label for="type">Type:</label>
-  <input type="text" name="type" required /><br>
-
-  <label for="description">Description:</label><br>
-  <textarea name="description"></textarea><br>
-
-  <label for="date">Date:</label>
-  <input type="date" name="date" /><br>
-
-  <label for="status">Status:</label>
-  <select name="status">
-    <option value="Pending" selected>Pending</option>
-    <option value="Complete">Complete</option>
-  </select><br>
-
-  <button type="submit">Submit</button>
-  <a href="/users/<%= userId %>/milestones">Cancel</a>
-</form> -->
 <%- include('../partials/_navbar') %>
-
+<main>
 <h1>New Milestone</h1>
-
+<section>
+<div id="flightCard">
 <form action="/users/<%= userId %>/milestones" method="POST">
   <label>Type:</label>
   <input type="text" name="type" required><br>
@@ -50,7 +32,10 @@
 
   <button type="submit">Create Milestone</button>
 </form>
+</div>
 <br><br>
 <a href="/users/<%= userId %>/milestones">Back to Milestones</a>
+</section>
+</main>
 </body>
 </html>

@@ -3,12 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Edit Milestone</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
      <%- include('../partials/_navbar') %>
+     <main>
     <h1>Edit Milestone</h1>
-
+    <section>
+<div id="flightCard">
 <form action="/users/<%= userId %>/milestones/<%= milestone._id %>?_method=PUT" method="POST">
   <label for="type">Type:</label>
   <input type="text" name="type" value="<%= milestone.type %>" required /><br>
@@ -28,7 +33,10 @@
   <button type="submit">Update</button>
   <a href="/users/<%= userId %>/milestones">Cancel</a>
 </form>
+</div>
 <br><br>
 <a href="/users/<%= userId %>/milestones">Back to Milestones</a>
+    </section>
+    </main>
 </body>
 </html>

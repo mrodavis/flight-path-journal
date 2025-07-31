@@ -8,41 +8,57 @@
   <link rel="stylesheet" href="/css/style.css">
   <script src="/js/dashboard.js" defer></script>
 </head>
-<body class="bg-gray-100 text-gray-800">
+<body class="">
 
   <!-- Navbar -->
   <%- include('partials/_navbar') %>
 
   <!-- Dashboard Main -->
-  <main class="max-w-3xl mx-auto py-8">
-    <h1 class="text-3xl font-bold mb-6">Welcome, <%= user.username %> ✈️</h1>
+  <main class="centered-page">
+    <h1 class="">Welcome, <%= user.username %> ✈️</h1>
 
-    <section class="space-y-6">
-      <!-- Total Hours -->
-      <div class="p-6 bg-white shadow rounded">
-        <h2 class="text-xl mb-2">Total Flight Hours</h2>
-        <p id="hoursTotal" class="text-4xl font-bold text-blue-700" data-count="<%= totalHours %>"><%= totalHours %></p>
+    <section class="">
+<!-- Flight Summary Card -->
+ <div id="flightCard">
+    <!-- Total Hours -->
+    <a href="/users/<%= user._id %>/sessions" style="text-decoration: none; color: inherit;">
+    <div id="slot">
+      <div class="">
+        <h2 class="">Total Flight Hours</h2>
+        <p id="hoursTotal" class="" data-count="<%= totalHours %>"><%= totalHours %></p>
       </div>
-
-      <!-- Milestones Completed -->
-      <div class="p-6 bg-white shadow rounded">
-        <h2 class="text-xl mb-2">Milestones Completed</h2>
-        <p id="milestoneTotal" class="text-4xl font-bold text-green-700" data-count="<%= totalMilestones %>"><%= totalMilestones %></p>
-      </div>
-
-      <!-- Progress Bar -->
-      <div class="p-6 bg-white shadow rounded">
-        <h2 class="text-xl mb-2">Progress to Completion</h2>
-        <div class="h-4 bg-gray-200 rounded overflow-hidden">
+    </div>
+    </a>
+  <!-- Milestones -->
+    <a href="/users/<%= user._id %>/milestones" style="text-decoration: none; color: inherit;">
+    <div id="slot"> 
+    <div class="">
+      <h2 class="">Milestones Completed</h2>
+      <p id="milestoneTotal" class="" data-count="<%= totalMilestones %>"><%= totalMilestones %></p>
+    </div>
+  </div>
+  </a>
+    <!-- Progress Section -->
+  <a href="/users/<%= user._id %>/progress" style="text-decoration: none; color: inherit;">   
+  <div id="slot">
+    <div>
+      <h2 class="">Progress to Completion</h2>
+      <div class="">
         <div class="progress-bar-container">
-        <div id="progressBar" class="progress-bar-fill"  data-progress="<%= Math.min((totalHours / nextMilestoneThreshold) * 100, 100) %>"></div>
-      </div>
-      <div id="progressLabel"
-          class="absolute inset-0 flex items-center justify-center text-white font-semibold text-sm">
-        <%= Math.min((totalHours / nextMilestoneThreshold) * 100, 100) %>%
-      </div>
+          <div id="progressBar"
+              class="progress-bar-fill"
+              data-progress="<%= Math.min((totalHours / nextMilestoneThreshold) * 100, 100) %>"
+              >
+          </div>
         </div>
+        <span id="progressLabel" class="">
+          <%= Math.min((totalHours / nextMilestoneThreshold) * 100, 100) %>%
+        </span>
       </div>
+      </div>
+  </div>
+</div>
+
     </section>
   </main>
 

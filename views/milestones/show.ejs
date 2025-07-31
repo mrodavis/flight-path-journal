@@ -4,21 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= milestone.type %></title>
+
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
      <%- include('../partials/_navbar') %>
+     <main>
     <h1><%= milestone.type %></h1>
+    <section>
+<div id="flightCard">
+    <p><strong>Status:</strong> <%= milestone.status %></p>
+    <p><strong>Date:</strong> <%= milestone.date ? milestone.date.toDateString() : 'N/A' %></p>
+    <p><strong>Description:</strong> <%= milestone.description || 'No description provided.' %></p>
 
-<p><strong>Status:</strong> <%= milestone.status %></p>
-<p><strong>Date:</strong> <%= milestone.date ? milestone.date.toDateString() : 'N/A' %></p>
-<p><strong>Description:</strong> <%= milestone.description || 'No description provided.' %></p>
-
-<a href="/users/<%= userId %>/milestones/<%= milestone._id %>/edit">Edit</a> |
-<form action="/users/<%= userId %>/milestones/<%= milestone._id %>?_method=DELETE" method="POST" style="display:inline;">
-  <button type="submit">Delete</button>
-</form>
+    <a href="/users/<%= userId %>/milestones/<%= milestone._id %>/edit">Edit</a> |
+    <form action="/users/<%= userId %>/milestones/<%= milestone._id %>?_method=DELETE" method="POST" style="display:inline;">
+    <button type="submit">Delete</button>
+    </form>
+</div>
 <br><br>
 <a href="/users/<%= userId %>/milestones">Back to Milestones</a>
-
+</section>
+</main>
 </body>
 </html>
