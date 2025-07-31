@@ -1,15 +1,37 @@
 <nav class="navbar">
-  <div class="logo">
-    
-  </div>
-  <div class="links">
-    <a href="/">Dashboard</a>
+  <div class="nav-container">
+    <a href="/" class="nav-logo">Level Up & Take Off ✈️ </a>
+    <ul class="nav-links">
+    <li><a href="/">Dashboard</a></li>
     <% if (user && user._id) { %>
-      <a href="/users/<%= user._id %>/sessions">My Sessions🛩️</a>
-      <a href="/users/<%= user._id %>/milestones">My Milestones✈️</a>
-      <a href="/auth/sign-out">Sign Out</a>
+      <li><a href="/users/<%= user._id %>/sessions">My Sessions✈️ </a></li>
+      <li><a href="/users/<%= user._id %>/milestones">My Milestones🏆</a></li>
+      <li><a href="/auth/sign-out">Sign Out🚪</a></li>
     <% } else { %>
-      <a href="/auth/sign-in">Sign In</a>
+      <li><a href="/auth/sign-in">Sign In🔑</a></li>
     <% } %>
+    </ul>
+
+
+    <button class="dark-toggle" onclick="toggleTheme()">🌓</button>
+<script>
+  function toggleTheme() {
+    const root = document.documentElement;
+    if (root.getAttribute("data-theme") === "dark") {
+      root.setAttribute("data-theme", "light");
+      localStorage.setItem("theme", "light");
+    } else {
+      root.setAttribute("data-theme", "dark");
+      localStorage.setItem("theme", "dark");
+    }
+  }
+
+  // Load preferred theme
+  (function() {
+    const saved = localStorage.getItem("theme");
+    if (saved) document.documentElement.setAttribute("data-theme", saved);
+  })();
+</script>
+
   </div>
 </nav>

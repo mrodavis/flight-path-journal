@@ -1,74 +1,299 @@
+:root {
+  --bg: #fff;
+  --fg: #111;
+  --card-bg: #fefefe;
+  --accent: #e50914;
+  --accent-hover: #ff3b3f;
+  --border: #e0e0e0;
+}
+
+[data-theme="dark"] {
+  --bg: #111;
+  --fg: #eee;
+  --card-bg: #222;
+  --border: #333;
+}
+
+/* === Base === */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f7fafc;
+  cursor: url('/assets/airplane_cursor.png'), auto;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  
+}
+
+
+h1, h2 {
+  color: var(--fg);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--accent-hover);
+}
+
+/* === Containers === */
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+/* === Buttons === */
+button, .btn {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+button:hover, .btn:hover {
+  background: var(--accent-hover);
+}
+
+/* === Dashboard Card Layout === */
+#flightCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 30px 20px;
+  background: var(--card-bg);
+  border: 2px solid var(--accent);
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+#flightCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  transition: all 0.3s ease;
+}
+
+/* === Individual Stats (Slots) === */
+#slot {
+  width: 100%;
+  margin: 1rem 0;
+  padding: 1.25rem;
+  border: 2px solid var(--accent);
+  border-radius: 12px;
+  text-align: center;
+  background-color: #fff;
+  box-sizing: border-box;
+}
+
+#slot:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+
+.slot-box {
+    cursor: url('/assets/airplane_cursor.png'), pointer;
+  width: 100%;
+  margin: 1rem 0;
+  padding: 1.25rem;
+  border: 2px solid var(--accent);
+  border-radius: 12px;
+  text-align: center;
+  background-color: #fff;
+  box-sizing: border-box;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.slot-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+/* Labels & Values */
+.stat-label {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.slot-value {
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: var(--accent);
+  margin-top: 0.25rem;
+  font-family: 'Helvetica Neue', 'Segoe UI', sans-serif;
+  text-shadow: 0 0 4px rgba(255, 0, 0, 0.3);
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.slot-value:hover {
+  transform: scale(1.05);
+  color: var(--accent-hover);
+}
+
+/* === Progress Bar === */
+.progress-bar-container {
+  background: #ddd;
+  border-radius: 9999px;
+  overflow: hidden;
+  height: 18px;
+  margin-top: 0.75rem;
+}
+
+.progress-bar-fill {
+  background: var(--accent);
+  height: 100%;
+  width: 0%;
+  transition: width 1s ease-out;
+}
+
+.progress-label {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--fg);
+}
+
+/* === Navbar === */
+.navbar {
+  background-color: #000;
+  color: white;
+  padding: 1rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(255, 0, 0, 0.15);
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.nav-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+}
+
+.nav-logo:hover {
+  color: var(--accent-hover);
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
   margin: 0;
   padding: 0;
 }
 
-main {
-  max-width: 600px;
-  margin: 40px auto;
-  padding: 20px;
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  position: relative;
 }
 
-h1 {
-  font-size: 2rem;
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 100%;
+  height: 2px;
+  background-color: var(--accent-hover);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+
+.nav-links a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.logout {
+  color: var(--accent-hover);
   font-weight: bold;
-  text-align: center;
-  margin-bottom: 1.5rem;
 }
 
-.container {
-  max-width: 700px;
-  margin: auto;
-  padding: 2rem;
-  text-align: center;
-}
-.container ul {
-  list-style-type: none;
-  padding: 0;
-}
-.container li {
-  margin: 1rem 0;
+.logout:hover {
+  text-decoration: underline;
 }
 
-.container {
-  max-width: 400px;
-  margin: auto;
-  padding: 2rem;
+body.dark .navbar {
+  background-color: #111;
+}
+body.dark .nav-links a {
+  color: #eee;
 }
 
-.auth-form div {
-  margin-bottom: 1rem;
+/* === Animation === */
+@keyframes takeoff {
+  0% { transform: translateX(-80px); opacity: 0; }
+  100% { transform: translateX(0); opacity: 1; }
+}
+.animated-plane {
+  animation: takeoff 1.4s ease-out;
 }
 
-.error {
-  color: red;
-  font-weight: bold;
-  margin-bottom: 1rem;
-}
-
-#progressBar {
-  transition: width 1s ease-out;
-}
-
-/* Central layout wrapper */
-.centered-page {
+.cta-container {
   display: flex;
   justify-content: center;
-  align-items: center;
-  min-height: 90vh;
-  background-color: #f9fbfd;
+  margin-top: 2rem;
 }
 
-/* Card/Box style */
-.content-box {
-  background: #fff;
-  padding: 2rem;
-  border-radius: 1rem;
-  border: 4px solid orange;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  width: 100%;
-  max-width: 500px;
-  text-align: center;
+.cta-btn {
+  cursor: url('/assets/airplane_cursor.png'), pointer;
+  background-color: var(--accent);
+  color: white;
+  font-size: 1.1rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.cta-btn:hover {
+  background-color: var(--accent-hover);
+  transform: translateY(-2px);
+}
+
+.cta-btn:hover::after {
+  content: " ✈️";
+  animation: flyby 0.6s ease forwards;
+}
+
+@keyframes flyby {
+  0%   { opacity: 0; transform: translateX(-10px); }
+  100% { opacity: 1; transform: translateX(5px); }
+}
+
+/* <--Media Queries--> */
+@media (max-width: 480px) {
+  .slot-box {
+    max-width: 95%;
+  }
+
+  #flightCard {
+    width: 95%;
+    padding: 1.5rem 1rem;
+  }
 }

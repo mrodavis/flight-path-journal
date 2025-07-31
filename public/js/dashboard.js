@@ -52,3 +52,8 @@ function animateProgress(bar, label, percent, duration) {
 
   requestAnimationFrame(step);
 }
+
+const toggle = () => {
+  const current = document.documentElement.getAttribute('data-theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+};

@@ -17,19 +17,17 @@
 <div id="flightCard">
 <ul>
   <% milestones.forEach(m => { %>
+    <a href="/users/<%= userId %>/milestones/<%= m._id %>">
     <div id="slot">
-    <h2 class="text-xl font-semibold text-gray-700 mb-2"><strong><%= m.type %></strong> - <%= m.status %></h2>
-    <li>
-      <a href="/users/<%= userId %>/milestones/<%= m._id %>">
-        <strong><%= m.type %></strong> - <%= m.status %>
-      </a>
-    </li>
-</div>
+    <h2 class="text-xl font-semibold text-gray-700 mb-2"><strong><%= m.type %></strong> - <%= m.status %>🎖️</h2>
+    
+</div></a>
   <% }) %>
 </ul>
 </div>
-
-<a href="/users/<%= userId %>/milestones/new">Add New Milestone</a>
+<div class="cta-container">
+  <a href="/users/<%= user._id %>/milestones/new" class="btn cta-btn">Log Milestone</a>
+</div>
 </section>
 </main>
 </body>

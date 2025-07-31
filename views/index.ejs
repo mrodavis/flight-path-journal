@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Dashboard</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3/dist/tailwind.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="/css/dashboard.css">
+  <!-- <link rel="stylesheet" href="/css/dashboard.css"> -->
   <link rel="stylesheet" href="/css/style.css">
   <script src="/js/dashboard.js" defer></script>
 </head>
@@ -15,48 +14,40 @@
 
   <!-- Dashboard Main -->
   <main class="centered-page">
-    <h1 class="">Welcome, <%= user.username %> ✈️</h1>
-
+    <h1 class="animated-plane">Welcome, <%= user.username %> 🚀</h1>
     <section class="">
 <!-- Flight Summary Card -->
- <div id="flightCard">
-    <!-- Total Hours -->
-    <a href="/users/<%= user._id %>/sessions" style="text-decoration: none; color: inherit;">
-    <div id="slot">
-      <div class="">
-        <h2 class="">Total Flight Hours</h2>
-        <p id="hoursTotal" class="" data-count="<%= totalHours %>"><%= totalHours %></p>
-      </div>
-    </div>
-    </a>
-  <!-- Milestones -->
-    <a href="/users/<%= user._id %>/milestones" style="text-decoration: none; color: inherit;">
-    <div id="slot"> 
-    <div class="">
-      <h2 class="">Milestones Completed</h2>
-      <p id="milestoneTotal" class="" data-count="<%= totalMilestones %>"><%= totalMilestones %></p>
-    </div>
-  </div>
+<div id="flightCard">
+  
+<div class="slot-box">
+  <a href="/users/<%= user._id %>/sessions" style="text-decoration: none; color: inherit;">
+    <div class="stat-label">Total Flight Hours ⏱</div>
+    <div id="hoursTotal" class="slot-value" data-count="<%= totalHours %>">0</div>
   </a>
-    <!-- Progress Section -->
-  <a href="/users/<%= user._id %>/progress" style="text-decoration: none; color: inherit;">   
-  <div id="slot">
-    <div>
-      <h2 class="">Progress to Completion</h2>
-      <div class="">
-        <div class="progress-bar-container">
-          <div id="progressBar"
-              class="progress-bar-fill"
-              data-progress="<%= Math.min((totalHours / nextMilestoneThreshold) * 100, 100) %>"
-              >
-          </div>
-        </div>
-        <span id="progressLabel" class="">
-          <%= Math.min((totalHours / nextMilestoneThreshold) * 100, 100) %>%
-        </span>
-      </div>
-      </div>
-  </div>
+</div>
+
+  
+<div class="slot-box">
+  <a href="/users/<%= user._id %>/milestones" style="text-decoration: none; color: inherit;">
+    <div class="stat-label">Milestones Completed 🏁</div>
+    <div id="milestoneTotal" class="slot-value" data-count="<%= totalMilestones %>">0</div>
+  </a>
+</div>
+
+    
+  <div class="slot-box">
+    <a href="/users/<%= user._id %>/progress" style="text-decoration: none; color: inherit;">
+    <div class="stat-label">Progress to Completion 🛫</div>
+    <div class="progress-bar-container">
+      
+      <div id="progressBar" class="progress-bar-fill" data-progress="<%= Math.min((totalHours / nextMilestoneThreshold) * 100, 100).toFixed(0) %>"></div>
+    </div>
+    <div id="progressLabel" class="slot-value">0%</div>
+  </div></a>
+</div>
+
+<div class="cta-container">
+  <a href="/users/<%= user._id %>/sessions/new" class="btn cta-btn">Log Session</a>
 </div>
 
     </section>
