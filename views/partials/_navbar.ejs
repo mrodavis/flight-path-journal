@@ -1,8 +1,9 @@
 <nav class="navbar">
   <div class="logo">
-    <a href="/">Home</a>
+    
   </div>
   <div class="links">
+    <a href="/">Home</a>
     <% if (user && user._id) { %>
       <a href="/users/<%= user._id %>/sessions">My Sessions🛩️</a>
       <a href="/users/<%= user._id %>/milestones">My Milestones✈️</a>

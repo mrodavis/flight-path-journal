@@ -60,7 +60,7 @@ app.get("/", async (req, res) => {
 
   let totalHours = 0;
   let totalMilestones = 0;
-  const nextMilestoneThreshold = 50; // or dynamically based on a roadmap
+  
 
   if (userId) {
     const sessions = await FlightSession.find({ user: userId });
@@ -69,12 +69,16 @@ app.get("/", async (req, res) => {
     totalHours = sessions.reduce((sum, session) => sum + session.duration, 0);
     totalMilestones = milestones.length;
   }
+  const thresholds = [10, 25, 40, 60];
+
+  // 🔍 Determine next milestone based on hours
+  const nextMilestoneThreshold = thresholds.find(h => totalHours < h) || totalHours;
 
   res.render("index.ejs", {
     user: req.session.user,
     totalHours,
     totalMilestones,
-    nextMilestoneThreshold: 50 
+    nextMilestoneThreshold
   });
 });
 

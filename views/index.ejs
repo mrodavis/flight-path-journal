@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
   <title>Dashboard</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3/dist/tailwind.min.css" rel="stylesheet">
-  <script src defer="/js/dashboard.js"></script>
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="/js/dashboard.js" defer></script>
 </head>
 <body class="bg-gray-100 text-gray-800">
 
@@ -19,34 +21,31 @@
       <!-- Total Hours -->
       <div class="p-6 bg-white shadow rounded">
         <h2 class="text-xl mb-2">Total Flight Hours</h2>
-        <p id="hours" class="text-4xl font-bold text-blue-700"><%= totalHours %></p>
+        <p id="hoursTotal" class="text-4xl font-bold text-blue-700" data-count="<%= totalHours %>"><%= totalHours %></p>
       </div>
 
       <!-- Milestones Completed -->
       <div class="p-6 bg-white shadow rounded">
         <h2 class="text-xl mb-2">Milestones Completed</h2>
-        <p id="milestones" class="text-4xl font-bold text-green-700"><%= totalMilestones %></p>
+        <p id="milestoneTotal" class="text-4xl font-bold text-green-700" data-count="<%= totalMilestones %>"><%= totalMilestones %></p>
       </div>
 
       <!-- Progress Bar -->
       <div class="p-6 bg-white shadow rounded">
-        <h2 class="text-xl mb-2">Progress to Next Milestone</h2>
+        <h2 class="text-xl mb-2">Progress to Completion</h2>
         <div class="h-4 bg-gray-200 rounded overflow-hidden">
-          <div id="progress-bar" class="h-full bg-blue-500 w-0 transition-all duration-700 ease-out"></div>
+        <div class="progress-bar-container">
+        <div id="progressBar" class="progress-bar-fill"  data-progress="<%= Math.min((totalHours / nextMilestoneThreshold) * 100, 100) %>"></div>
+      </div>
+      <div id="progressLabel"
+          class="absolute inset-0 flex items-center justify-center text-white font-semibold text-sm">
+        <%= Math.min((totalHours / nextMilestoneThreshold) * 100, 100) %>%
+      </div>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- Backend Data to Frontend -->
-  <script>
-    window.dashboardData = {
-      hours: <%= totalHours %>,
-      milestones: <%= totalMilestones %>,
-      nextMilestoneThreshold: <%= nextMilestoneThreshold %>
-    };
-  </script>
-  
 
 </body>
 </html>

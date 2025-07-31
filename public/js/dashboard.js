@@ -1,25 +1,25 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // Get DOM elements
   const hoursDisplay = document.getElementById('hoursTotal');
   const milestoneDisplay = document.getElementById('milestoneTotal');
   const progressBar = document.getElementById('progressBar');
+  const progressLabel = document.getElementById('progressLabel');
 
-  // Sample data (replace with values passed from server or via data-* attributes)
-  const totalHours = 48;            // example: user has logged 48 hours
-  const milestonesCompleted = 5;    // example: 5 milestones completed
-  const progressPercent = 65;       // progress toward next milestone in %
+  const totalHours = parseInt(hoursDisplay?.dataset.count || 0);
+  const totalMilestones = parseInt(milestoneDisplay?.dataset.count || 0);
+  const progressPercent = parseFloat(progressBar?.dataset.progress || 0);
 
-  // Animate numbers
   animateCount(hoursDisplay, totalHours, 1000);
-  animateCount(milestoneDisplay, milestonesCompleted, 1000);
-  animateProgress(progressBar, progressPercent, 1000);
+  animateCount(milestoneDisplay, totalMilestones, 1000);
+  animateProgress(progressBar, progressLabel, progressPercent, 1000);
 });
 
-// Animate number counting
 function animateCount(element, endValue, duration) {
+  if (!element) return;
   let start = 0;
-  const increment = endValue / (duration / 16); // ~60fps
-  const step = () => {
+  const stepTime = 16;
+  const increment = endValue / (duration / stepTime);
+
+  function step() {
     start += increment;
     if (start < endValue) {
       element.textContent = Math.floor(start);
@@ -27,19 +27,28 @@ function animateCount(element, endValue, duration) {
     } else {
       element.textContent = endValue;
     }
-  };
-  step();
+  }
+
+  requestAnimationFrame(step);
 }
 
-// Animate progress bar width
-function animateProgress(bar, percent, duration) {
-  let width = 0;
-  const step = () => {
-    width++;
-    if (width <= percent) {
-      bar.style.width = `${width}%`;
+function animateProgress(bar, label, percent, duration) {
+  if (!bar || !label) return;
+
+  const startTime = performance.now();
+  const startWidth = 0;
+
+  function step(currentTime) {
+    const elapsed = currentTime - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const width = percent * progress;
+    bar.style.width = `${width}%`;
+    label.textContent = `${Math.round(width)}%`;
+
+    if (progress < 1) {
       requestAnimationFrame(step);
     }
-  };
-  step();
+  }
+
+  requestAnimationFrame(step);
 }

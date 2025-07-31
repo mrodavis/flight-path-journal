@@ -27,3 +27,7 @@
   font-weight: bold;
   margin-bottom: 1rem;
 }
+
+#progressBar {
+  transition: width 1s ease-out;
+}

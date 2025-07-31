@@ -1,41 +1,46 @@
-/* dashboard.css */
-
-.dashboard-container {
-  @apply p-6 max-w-4xl mx-auto;
-}
-
-.dashboard-header {
-  @apply text-3xl font-bold mb-6 text-center;
-}
-
-.stats-section {
-  @apply grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8;
-}
-
-.stat-box {
-  @apply bg-white shadow-md rounded-lg p-6 flex flex-col items-center;
-}
-
+/* Label for statistics (e.g. "Total Hours") */
 .stat-label {
-  @apply text-sm text-gray-600 mb-2;
+  font-size: 0.875rem;           /* text-sm */
+  color: #4b5563;                /* text-gray-600 */
+  margin-bottom: 0.5rem;         /* mb-2 */
 }
 
+/* Value for statistics (e.g. "48") */
 .stat-value {
-  @apply text-3xl font-semibold text-blue-600;
+  font-size: 1.875rem;           /* text-3xl */
+  font-weight: 600;              /* font-semibold */
+  color: #2563eb;                /* text-blue-600 */
 }
 
+/* Section spacing */
 .progress-section {
-  @apply mt-8;
+  margin-top: 2rem;              /* mt-8 */
 }
 
+/* Label inside progress area */
 .progress-label {
-  @apply text-md font-medium mb-2;
+  font-size: 1.125rem;           /* text-md */
+  font-weight: 500;              /* font-medium */
+  margin-bottom: 0.5rem;         /* mb-2 */
 }
 
+/* Outer progress bar container */
 .progress-bar-container {
-  @apply w-full h-4 bg-gray-300 rounded-full;
+  width: 100%;                   /* w-full */
+  height: 1rem;                  /* h-4 */
+  background-color: #d1d5db;     /* bg-gray-300 */
+  border-radius: 9999px;         /* rounded-full */
 }
 
+/* The progress fill that grows in width */
 .progress-bar-fill {
-  @apply h-4 bg-blue-500 rounded-full transition-all duration-500 ease-out;
+  height: 1rem;                  /* h-4 */
+  background-color: #3b82f6;     /* bg-blue-500 */
+  border-radius: 9999px;         /* rounded-full */
+  transition: all 0.5s ease-out; /* transition-all duration-500 ease-out */
+}
+
+/* Optional ID selector override if needed */
+#progressBar {
+  transition: width 1s ease-out;
 }
