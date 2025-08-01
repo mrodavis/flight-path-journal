@@ -5,37 +5,223 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New Flight Session</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/dashboard.css">
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <%- include('../partials/_navbar') %>
-<main class="">
-<h1>New Flight Session</h1>
-<section>
+<%- include('../partials/_navbar') %>
 <div id="flightCard">
-<form action="/users/<%= userId %>/sessions" method="POST">
-  <label>Date:</label>
-  <input type="date" name="date" required><br>
+<main class="centered-page">
+<br>
+<h1>📝 Log a New Flight Session</h1>
+<br>
+<form action="/users/<%= user._id %>/sessions" method="POST" class="flight-form">
 
-  <label>Duration (hours):</label>
-  <input type="number" name="duration" required><br>
+  <!-- Date -->
+  <label for="date">Date of Session:</label>
+  <input type="date" name="date" id="date" required />
 
-  <label>Focus Area:</label>
-  <input type="text" name="focusArea" required><br>
+  <!-- Duration -->
+  <label for="duration">Session Duration (hours):</label>
+  <input type="number" name="duration" id="duration" placeholder="e.g., 1.5" step="0.1" required />
 
-  <label>Notes:</label>
-  <textarea name="notes"></textarea><br>
+  <!-- Aircraft Type -->
+  <label for="aircraft">Aircraft Type:</label>
+  <input type="text" name="aircraft" id="aircraft" placeholder="e.g., Cessna 172" required />
 
-  <button type="submit">Create Session</button>
-</form>
+  <!-- Focus Area Category -->
+  <label for="focusCategory">Focus Area Category:</label>
+  <select name="focusCategory" id="focusCategory" required>
+    <option value="" disabled selected>Select category</option>
+    <option value="core">Core Flight Skills</option>
+    <option value="navigation">Navigation & Instruments</option>
+    <option value="decision">Decision-Making & Safety</option>
+    <option value="technical">Systems & Technical Skills</option>
+    <option value="evaluation">Test Prep / Evaluation</option>
+  </select>
+
+  <!-- Focus Area -->
+  <div class="reveal-step hidden" id="focusAreaContainer" style="display: none;">
+  <label for="focusArea">Focus Area:</label>
+  <select name="focusArea" id="focusArea" required>
+    <option value="" disabled selected>Select focus area</option>
+  </select>
+  </div>
+
+  <!-- Hidden initially -->
+  <!-- Weather -->
+
+<div class="reveal-step hidden">
+  <label for="weather">Weather Conditions:</label>
+  <input type="text" name="weather" id="weather" placeholder="e.g., Clear skies, 5 mph wind" />
 </div>
+
+<div class="reveal-step hidden">
+  <!-- Location -->
+  <label for="location">Airport / Location:</label>
+  <input type="text" name="location" id="location" placeholder="e.g., KJFK" />
+</div>
+
+  <!-- Instructor -->
+<div class="reveal-step hidden">
+  <label for="instructor">Instructor Name:</label>
+  <input type="text" name="instructor" id="instructor" placeholder="e.g., Captain Lewis" />
+</div>
+
+  <!-- Performance Rating -->
+ <div class="reveal-step hidden">
+  <label for="rating">Self Rating (1–5):</label>
+  <select name="rating" id="rating">
+    <option value="" disabled selected>Select one</option>
+    <option value="1">1 - Poor</option>
+    <option value="2">2 - Fair</option>
+    <option value="3">3 - Good</option>
+    <option value="4">4 - Great</option>
+    <option value="5">5 - Excellent</option>
+  </select>
+</div>
+
+  <!-- Notes -->
+<div class="reveal-step hidden">
+  <label for="notes">Notes (optional):</label>
+  <textarea name="notes" id="notes" rows="4" placeholder="What did you practice? Any highlights?"></textarea>
+</div>
+  <!-- Hidden Fields -->
+  <input type="hidden" name="user" value="<%= user._id %>" />
+  <input type="hidden" name="createdAt" value="<%= new Date().toISOString() %>" />
+
+  <!-- Submit -->
+<div class="reveal-step hidden" id="saveBtn">
+    <div class="cta-container">
+  <button type="submit" class="btn cta-btn">Save Session</button>
+  </div>
+</div>
+</form>
 <br><br>
 <div class="cta-container">
   <a href="/users/<%= user._id %>/sessions" class="btn cta-btn">Back to Flight Sessions</a>
 </div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const steps = document.querySelectorAll('.reveal-step');
+  let revealIndex = 0;
 
-</section>
-</main>
+  const revealNext = () => {
+    if (revealIndex < steps.length) {
+      steps[revealIndex].classList.remove('hidden');
+      revealIndex++;
+    }
+  };
+
+  const durationInput = document.getElementById('duration');
+  durationInput.addEventListener('blur', () => {
+    if (durationInput.value) revealNext();
+  });
+
+  const aircraftInput = document.getElementById('aircraft');
+  aircraftInput.addEventListener('blur', () => {
+    if (aircraftInput.value) revealNext();
+  });
+
+  const locationInput = document.getElementById('location');
+  locationInput.addEventListener('input', () => {
+    if (locationInput.value) revealNext();
+  });
+
+  const instructorInput = document.getElementById('instructor');
+  instructorInput.addEventListener('input', () => {
+    if (instructorInput.value) revealNext();
+  });
+
+  const ratingInput = document.getElementById('rating');
+  ratingInput.addEventListener('input', () => {
+    if (ratingInput.value) revealNext();
+  });
+
+  const notesInput = document.getElementById('notes');
+  notesInput.addEventListener('input', () => {
+    if (notesInput.value) {
+        const saveSession = document.getElementById('saveBtn')
+        saveSession.classList.remove('hidden');
+    };
+  });
+
+  const focusAreaMap = {
+    core: [
+      "Takeoff & Landing Practice",
+      "Steep Turns",
+      "Slow Flight",
+      "Stalls & Stall Recovery",
+      "Ground Reference Maneuvers",
+      "Emergency Procedures",
+      "Crosswind Techniques"
+    ],
+    navigation: [
+      "Navigation (Pilotage/Dead Reckoning)",
+      "VOR Navigation / GPS Navigation",
+      "Cross-Country Flight Planning",
+      "Instrument Flying (Basic Attitude Flying)",
+      "DME Arcs & Holding Patterns"
+    ],
+    decision: [
+      "Aeronautical Decision Making (ADM)",
+      "Situational Awareness",
+      "Risk Management",
+      "Weight & Balance / Performance Calculations"
+    ],
+    technical: [
+      "Radio Communications",
+      "Preflight Inspection / Systems Check",
+      "Fuel Management",
+      "Airspace & Weather Interpretation"
+    ],
+    evaluation: [
+      "Mock Checkride / Oral Exam Practice",
+      "Stage Check Review",
+      "Solo Endorsement Prep",
+      "Night Flight Training",
+      "Spin Awareness (for CFI candidates)"
+    ]
+  };
+
+  const focusCategory = document.getElementById('focusCategory');
+  const focusArea = document.getElementById('focusArea');
+  const focusAreaContainer = document.getElementById('focusAreaContainer');
+
+  focusCategory?.addEventListener('change', () => {
+    const selected = focusCategory.value;
+    focusArea.innerHTML = '<option value="" disabled selected>Select focus area</option>';
+
+    if (focusAreaMap[selected]) {
+        focusAreaContainer.style.display = 'block';
+        focusAreaMap[selected].forEach(area => {
+        const option = document.createElement('option');
+        option.value = area;
+        option.textContent = area;
+        focusArea.appendChild(option);
+      });
+    } else {
+      focusAreaContainer.style.display = 'none';
+    }
+  });
+
+ focusArea.addEventListener('change', () => {
+    if (focusArea.value) revealNext(); // This unlocks weather, location, etc.
+  });
+//   // Optional: reveal next step after selecting focusArea
+//   focusArea.addEventListener('change', () => {
+//     revealNext(4); // reveal weather
+//   });
+});
+
+
+  // Autofill today's date
+const dateInput = document.getElementById('date');
+if (dateInput) {
+  const today = new Date().toISOString().split('T')[0];
+  dateInput.value = today;
+}
+
+</script>
 </body>
 </html>

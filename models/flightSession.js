@@ -20,6 +20,21 @@ const flightSessionSchema = new mongoose.Schema({
     required: true,
     trim: true
   },
+  aircraft: {
+    type: String
+  },
+  weather: {
+    type: String
+  },
+  location: {
+    type: String
+  },
+  instructor: {
+    type: String
+  },
+  rating: {
+    type: Number
+  },  
   notes: {
     type: String
   },
