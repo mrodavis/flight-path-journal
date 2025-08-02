@@ -5,16 +5,151 @@
   <title>Flight Session Details</title>
   <link rel="stylesheet" href="/css/style.css" />
   <title><%= session.date.toDateString() %> - Flight Log</title>
+  <style>
+  body {
+    font-family: 'Courier New', monospace;
+    background-color: #fffaf5;
+    padding: 2rem;
+    color: #333;
+  }
+
+  .centered-page {
+    border: 2px solid #ff5a1f;
+    border-radius: 12px;
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #fffdf9;
+  }
+
+  .page-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .page-title::after {
+    content: " ✈️";
+  }
+
+  .session-badge-2 {
+    font-style: italic;
+    text-align: center;
+    color: #777;
+    font-size: 14px;
+    margin-bottom: 1rem;
+  }
+
+  .tag-container {
+    text-align: center;
+    margin: 1rem 0;
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 8px 12px;
+    margin: 5px;
+    font-size: 14px;
+    background-color: #eee;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    font-weight: bold;
+  }
+
+  .logbook {
+    margin-top: 1rem;
+  }
+
+  .log-entry {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px dashed #bbb;
+    font-size: 16px;
+  }
+
+  .log-label {
+    font-weight: bold;
+    width: 30%;
+  }
+
+  .log-value {
+    width: 65%;
+    text-align: right;
+  }
+
+  .log-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .btn {
+    border: none;
+    padding: 10px 16px;
+    font-size: 14px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .btn-edit {
+    background-color: #f2f2f2;
+    color: #333;
+    border: 1px solid #ccc;
+  }
+
+  .btn-delete {
+    background-color: #ff5a1f;
+    color: white;
+  }
+
+  .btn-download, .btn-print {
+    background-color: #ff5a1f;
+    color: white;
+  }
+
+  .btn-print i, .btn-download i {
+    margin-right: 5px;
+  }
+
+  @media print {
+    .btn, .log-actions, a {
+      display: none !important;
+    }
+
+    body {
+      background: white;
+    }
+
+    .centered-page {
+      border: none;
+      padding: 0;
+    }
+  }
+</style>
+
 </head>
 <body>
-  <%- include('../partials/_navbar') %>
+ 
 
   <main class="centered-page">
-<%- include('../partials/_tagIcons'); %>
+<% const tagIcons = {
+  "Day Flight": "🌞",
+  "Night Flight": "🌙",
+  "Logged": "📘",
+  "Solo": "🧍‍♂️",
+  "Crosswind": "💨",
+  "Emergency Drill": "🚨",
+  "Simulator": "🖥️",
+  "Pattern Work": "🔁",
+  "Checkride Prep": "✅"
+} %>
  <h1 class="page-title">Flight Log: <%= new Date(session.date).toDateString() %> 🛫</h1>   
 
 <section class="logbook">
-  <a href="/users/<%= userId %>/sessions/<%= session._id %>/download" class="btn btn-download">📄 PDF</a>
+
 
     <h1 class="page-title">Session on <%= new Date(session.date).toDateString() %> 🛫</h1>
     <p class="session-badge-2"><%= session.location%>🚡 • <%=session.aircraft%>🛩️ • <%=session.duration %> hr<%= session.duration > 1 ? 's' : '' %>🕒</p><br>
@@ -60,19 +195,9 @@
     <div class="log-value"><strong><%= session.notes || 'N/A' %></strong></div>
   </div>
 
-  <div class="log-actions">
-    <a href="/users/<%= userId %>/sessions/<%= session._id %>/edit" class="btn btn-edit">✏️ Edit</a>
-    <form action="/users/<%= userId %>/sessions/<%= session._id %>?_method=DELETE" method="POST" style="display:inline;">
-      <button type="submit" class="btn btn-delete">🗑 Delete</button>
-    </form>
-    <button class="btn btn-print" onclick="window.print()">🖨️ Print</button>
-  </div>
-  
 </section>
 
-    <div class="center-text">
-      <a href="/users/<%= userId %>/sessions" class="btn cta-btn">⬅ Back to Flight Sessions</a>
-    </div><br>
+
   </main>
 </body>
 </html>

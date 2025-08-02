@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router({ mergeParams: true });
 const FlightSession = require('../models/flightSession');
+const pdf = require('html-pdf');
+const ejs = require('ejs');
+const path = require('path');
 
 // INDEX
 router.get('/', async (req, res) => {
@@ -34,6 +37,25 @@ router.get('/:id', async (req, res) => {
 router.get('/:id/edit', async (req, res) => {
   const session = await FlightSession.findById(req.params.id);
   res.render('sessions/edit.ejs', { session, userId: req.params.userId });
+});
+// DOWNLOAD PDF
+router.get('/:id/download', async (req, res) => {
+  const session = await FlightSession.findById(req.params.id);
+  const filePath = path.join(__dirname, '../views/sessions/pdf-template.ejs');
+
+  ejs.renderFile(filePath, { session }, (err, html) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send('PDF generation failed');
+    }
+
+    pdf.create(html).toStream((err, stream) => {
+      if (err) return res.status(500).send('Error streaming PDF');
+      res.setHeader('Content-Type', 'application/pdf');
+      res.setHeader('Content-Disposition', `attachment; filename=flight-log-${session.date.toISOString().split('T')[0]}.pdf`);
+      stream.pipe(res);
+    });
+  });
 });
 
 // CREATE
