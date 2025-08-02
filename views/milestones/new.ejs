@@ -11,9 +11,10 @@
 
 <%- include('../partials/_navbar') %>
 <main>
-<h1>New Milestone</h1>
+    <div id="flightCard">
+<h1>🌟 New Milestone</h1><br>
 <section>
-<div id="flightCard">
+
 <form action="/users/<%= userId %>/milestones" method="POST" class="flight-form">
   <label>Type:</label>
   <input type="text" name="type" required>
@@ -36,7 +37,7 @@
 </div>
 
 <div class="cta-container">
-  <a href="/users/<%= user._id %>/milestones" class="btn cta-btn">Back to Milestones</a>
+  <a href="/users/<%= user._id %>/milestones" class="btn cta-btn">Back</a>
 </div><br>
 
 </section>

@@ -86,11 +86,11 @@ button:hover, .btn:hover {
 }
 
 /* === Individual Stats (Slots) === */
-#slot {
+/* #slot {
   width: 100%;
   margin: 1rem 0;
   padding: 1.25rem;
-  border: 2px solid var(--accent);
+  border: 2px solid #333333 var(--accent);
   border-radius: 12px;
   text-align: center;
   background-color: #fff;
@@ -100,17 +100,18 @@ button:hover, .btn:hover {
 #slot:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-}
+} */
 
 .slot-box {
-    cursor: url('/assets/airplane_cursor.png'), pointer;
+  cursor: url('/assets/airplane_cursor.png'), pointer;
   width: 100%;
   margin: 1rem 0;
   padding: 1.25rem;
-  border: 2px solid var(--accent);
+  border: 1.5px solid #ccc ;
   border-radius: 12px;
   text-align: center;
-  background-color: #fff;
+  background-color: #fff var(--card-bg);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
   box-sizing: border-box;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -333,9 +334,11 @@ body.dark .nav-links a {
 /* <--Session Index Styling ---> */
 .session-card {
   background-color: #fff;
+  background-color: var(--card-bg);
   border: 1px solid #ccc;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   border-radius: 10px;
+  flex-direction: row;
   padding: 16px;
   margin-bottom: 16px;
   display: flex;
@@ -343,10 +346,20 @@ body.dark .nav-links a {
   align-items: center;
   cursor: pointer;
   transition: box-shadow 0.2s ease-in-out;
+  width: 450px;
+  box-sizing: border-box;
+  cursor: url('/assets/airplane_cursor.png'), pointer;
+  
+
 }
 
 .session-card:hover {
+    transform: translateY(-3px);
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+}
+
+body.dark .session-card:hover {
+  box-shadow: 0 6px 14px rgba(255, 255, 255, 0.05); /* subtle in dark mode */
 }
 
 .session-details {
@@ -358,12 +371,15 @@ body.dark .nav-links a {
   font-size: 0.85rem;
   color: #666;
   margin-bottom: 6px;
+    color: var(--fg);
+  opacity: 0.6;
 }
 
 .session-title {
   font-size: 1.2rem;
   font-weight: bold;
   color: #111;
+   color: var(--fg);
 }
 
 .session-badge {
@@ -373,4 +389,57 @@ body.dark .nav-links a {
   padding: 5px 12px;
   border-radius: 9999px;
   white-space: nowrap;
+}
+
+/* <--- Show Session ---> */
+.session-details-card {
+  border: 2px solid #ff3b3f;
+  border-radius: 12px;
+  padding: 2rem;
+  background-color: #fff;
+  max-width: 600px;
+  margin: 0 auto 2rem;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+}
+
+.session-info-list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 2rem;
+}
+
+.session-info-list li {
+  padding: 0.5rem 0;
+  font-size: 1.1rem;
+}
+
+.session-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.btn {
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+
+.secondary-btn {
+  background-color: #f0f0f0;
+  color: #333;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.danger-btn {
+  background-color: #ff3b3f;
+  color: white;
+  box-shadow: 0 2px 6px rgba(255, 59, 63, 0.4);
+}
+
+.center-text {
+  text-align: center;
+  margin-top: 1.5rem;
 }

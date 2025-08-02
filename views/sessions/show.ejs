@@ -1,33 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Session on <%= session.date.toDateString() %></title>
-    <link rel="stylesheet" href="/css/dashboard.css">
-    <link rel="stylesheet" href="/css/style.css">
+  <meta charset="UTF-8" />
+  <title>Flight Session Details</title>
+  <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
-    <%- include('../partials/_navbar') %>
-<main class="">
-    <br>
-<h1>Session on <%= session.date.toDateString() %></h1>
-<section>
-<div id="flightCard">
-<p><strong>Duration:</strong> <%= session.duration %> hours</p>
-<p><strong>Focus Area:</strong> <%= session.focusArea %></p>
-<p><strong>Notes:</strong> <%= session.notes || 'N/A' %></p>
+  <%- include('../partials/_navbar') %>
 
-<a href="/users/<%= userId %>/sessions/<%= session._id %>/edit">Edit</a> |
-<form action="/users/<%= userId %>/sessions/<%= session._id %>?_method=DELETE" method="POST" style="display:inline;">
-  <button type="submit">Delete</button>
-</form>
-</div>
-<br><br>
-<div class="cta-container">
-  <a href="/users/<%= user._id %>/sessions" class="btn cta-btn">Back to Flight Sessions</a>
-</div>
-</section>
-</main>
+  <main class="centered-page">
+    <h1 class="page-title">Session on <%= new Date(session.date).toDateString() %> 🛫</h1>
+
+    <section class="session-details-card">
+      <ul class="session-info-list">
+        <li><strong>🕒 Duration:</strong> <%= session.duration %> hour<%= session.duration > 1 ? 's' : '' %></li>
+        <li><strong>📍 Location:</strong> <%= session.location || 'N/A' %></li>
+        <li><strong>🎯 Focus Area:</strong> <%= session.focusArea || 'N/A' %></li>
+        <li><strong>📝 Notes:</strong> <%= session.notes || 'N/A' %></li>
+        <li><strong>👨‍🏫 Instructor:</strong> <%= session.instructor || 'N/A' %></li>
+        <li><strong>🌤 Weather:</strong> <%= session.weather || 'N/A' %></li>
+        <li><strong>🛩 Aircraft Type:</strong> <%= session.aircraft || 'N/A' %></li>
+      </ul>
+
+      <div class="session-actions">
+        <a href="/users/<%= userId %>/sessions/<%= session._id %>/edit" class="btn secondary-btn">✏️ Edit</a>
+        <form action="/users/<%= userId %>/sessions/<%= session._id %>?_method=DELETE" method="POST">
+          <button type="submit" class="btn danger-btn">🗑 Delete</button>
+        </form>
+      </div>
+    </section>
+
+    <div class="center-text">
+      <a href="/users/<%= userId %>/sessions" class="btn cta-btn">⬅ Back to Flight Sessions</a>
+    </div>
+  </main>
 </body>
 </html>

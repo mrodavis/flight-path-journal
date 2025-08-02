@@ -11,25 +11,30 @@
 <body>
 
 <%- include('../partials/_navbar') %>
-<main>
-<h1>Milestones</h1>
+<main><br>
+<h1>Milestones🏆</h1>
 <section>
 <div id="flightCard">
+    <div class="cta-container">
+  <a href="/users/<%= user._id %>/milestones/new" class="btn cta-btn">Log Milestone</a>
+  </div>
 <ul>
   <% milestones.forEach(m => { %>
-    <a href="/users/<%= userId %>/milestones/<%= m._id %>">
-    <div id="slot">
-    <h2 class="text-xl font-semibold text-gray-700 mb-2">🎖️ - <strong><%= m.type %></strong> - <%= m.status %></h2>
     
-</div></a>
+    <a href="/users/<%= userId %>/milestones/<%= m._id %>" class="session-card">
+    <div class="session-details">
+        <p class="session-date"><%= m.date.toDateString() %></p>
+    <h2 class="session-title">🎖️ - <strong><%= m.type %></strong></h2>
+    </div>
+        <span class="session-badge">🛫 <%= m.status %></span>
+    
+</a>
   <% }) %>
 </ul>
 </div>
+
 <div class="cta-container">
-  <a href="/users/<%= user._id %>/milestones/new" class="btn cta-btn">Log Milestone</a>
-  </div>
-<div class="cta-container">
-  <a href="/users/<%= user._id %>/sessions" class="btn cta-btn">Back to Flight Sessions</a>
+  <a href="/" class="btn cta-btn">Back to Dashboard</a>
 </div>
 </div>
 </section>
