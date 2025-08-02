@@ -391,6 +391,29 @@ body.dark .session-card:hover {
   white-space: nowrap;
 }
 
+.session-badge-2 {
+  text-align: center;
+  font-weight: 700;
+  color: #666;
+  margin-bottom: 1.5rem;
+  font-style: italic;
+  font-size: 0.95rem;
+  letter-spacing: 0.3px;
+
+  animation: fadeIn 0.6s ease-out both;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* <--- Show Session ---> */
 .session-details-card {
   border: 2px solid #ff3b3f;
@@ -442,4 +465,185 @@ body.dark .session-card:hover {
 .center-text {
   text-align: center;
   margin-top: 1.5rem;
+}
+
+/* Session Card Layout */
+.session-log-card {
+  border: 2px solid #ff3d3d;
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 600px;
+  margin: 0 auto 2rem auto;
+  background-color: #fff;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+  animation: fadeIn 0.6s ease-in-out both;
+}
+
+/* Session Details List */
+.session-log-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2rem 0;
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.session-log-list li span {
+  font-weight: bold;
+  color: #111;
+  margin-right: 6px;
+}
+
+/* Action Buttons */
+.session-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.btn-outline {
+  padding: 0.6rem 1.2rem;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  background: #f9f9f9;
+  color: #333;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-outline:hover {
+  background: #eee;
+  border-color: #999;
+}
+
+.btn-delete {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  background: #ff3d3d;
+  color: #fff;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+}
+
+.btn-delete:hover {
+  background: #e60000;
+}
+
+.logbook {
+  background: #fffdf6;
+  border: 2px solid #e00;
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 700px;
+  margin: 2rem auto;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.log-entry {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px dashed #bbb;
+  padding: 0.75rem 0;
+  font-size: 1rem;
+}
+
+.log-label {
+  font-weight: bold;
+  color: #333;
+  width: 150px;
+}
+
+.log-value {
+  color: #444;
+  text-align: right;
+  flex-grow: 1;
+}
+
+.log-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.btn {
+  padding: 0.5rem 1.5rem;
+  border: none;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-edit {
+  background-color: #f5f5f5;
+  color: #333;
+  border: 1px solid #ccc;
+}
+
+.btn-edit:hover {
+  background-color: #e2e2e2;
+}
+
+.btn-delete {
+  background-color: #e00;
+  color: #fff;
+}
+
+.btn-delete:hover {
+  background-color: #c00;
+}
+
+/* <---Badge---> */
+.tag-container {
+  text-align: center;
+  margin-bottom: 1rem;
+  animation: fadeIn 1s ease-out;
+}
+
+.tag {
+  display: inline-block;
+  background-color: #f9f9f9;
+  color: #333;
+  font-weight: 600;
+  border-radius: 20px;
+  padding: 0.4em 0.8em;
+  font-size: 0.9rem;
+  margin: 0.3em;
+  border: 1px solid #ccc;
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.05);
+  transition: all 0.2s ease-in-out;
+}
+
+.tag:hover {
+  background-color: #eee;
+  transform: scale(1.05);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+/*<--Print Feature-->*/
+@media print {
+  .btn, nav, .cta-btn, .log-actions, .center-text {
+    display: none !important;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-size: 12pt;
+    background: white;
+  }
+
+  .logbook {
+    box-shadow: none;
+    border: none;
+  }
 }

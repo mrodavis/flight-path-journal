@@ -38,6 +38,10 @@ const flightSessionSchema = new mongoose.Schema({
   notes: {
     type: String
   },
+  tags: {
+    type: [String],
+    default: []
+  },
   milestone: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Milestone',

@@ -87,7 +87,15 @@
   <!-- Hidden Fields -->
   <input type="hidden" name="user" value="<%= user._id %>" />
   <input type="hidden" name="createdAt" value="<%= new Date().toISOString() %>" />
-
+  <!--Badges-->
+<div class="form-group">
+  <label>Tags:</label><br>
+  <label><input type="checkbox" name="tags" value="Day Flight"> ☀️ Day Flight</label><br>
+  <label><input type="checkbox" name="tags" value="Night Flight"> 🌙 Night Flight</label><br>
+  <label><input type="checkbox" name="tags" value="Dual Flight"> 🧑‍✈️ Dual Flight</label><br>
+  <label><input type="checkbox" name="tags" value="Solo Flight"> 👤 Solo Flight</label><br>
+  <!-- <label><input type="checkbox" name="tags" value="Logged"> ✅ Logged</label> -->
+</div>
   <!-- Submit -->
 <div class="reveal-step hidden" id="saveBtn">
     <div class="cta-container">

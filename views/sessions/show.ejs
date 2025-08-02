@@ -4,35 +4,72 @@
   <meta charset="UTF-8" />
   <title>Flight Session Details</title>
   <link rel="stylesheet" href="/css/style.css" />
+  <title><%= session.date.toDateString() %> - Flight Log</title>
 </head>
 <body>
   <%- include('../partials/_navbar') %>
 
   <main class="centered-page">
+<%- include('../partials/_tagIcons'); %>
+ <h1 class="page-title">Flight Log: <%= new Date(session.date).toDateString() %> 🛫</h1>   
+
+<section class="logbook">
     <h1 class="page-title">Session on <%= new Date(session.date).toDateString() %> 🛫</h1>
+    <p class="session-badge-2"><%= session.location%>🚡 • <%=session.aircraft%>🛩️ • <%=session.duration %> hr<%= session.duration > 1 ? 's' : '' %>🕒</p><br>
+<div class="tag-container">
+  <% if (session.tags && session.tags.length) { %>
+    <% session.tags.forEach(tag => { %>
+      <span class="tag">
+        <%= tagIcons[tag] || "🏷️" %> <%= tag %>
+      </span>
+    <% }) %>
+  <% } %>
+</div>
+    <div class="log-entry">
+    <div class="log-label">📅 Date:</div>
+    <div class="log-value"><strong><%= session.date.toDateString() %></strong></div>
+  </div>
+  <div class="log-entry">
+    <div class="log-label">📍 Location:</div>
+    <div class="log-value"><strong><%= session.location %></strong></div>
+  </div>
+  <div class="log-entry">
+    <div class="log-label">🕒 Duration:</div>
+    <div class="log-value"><strong><%= session.duration %> hr<%= session.duration > 1 ? 's' : '' %></strong></div>
+  </div>
+  <div class="log-entry">
+    <div class="log-label">🎯 Focus:</div>
+    <div class="log-value"><strong><%= session.focusArea %></strong></div>
+  </div>
+  <div class="log-entry">
+    <div class="log-label">🧑‍✈️ Instructor:</div>
+    <div class="log-value"><strong><%= session.instructor %></strong></div>
+  </div>
+  <div class="log-entry">
+    <div class="log-label">☁️ Weather:</div>
+    <div class="log-value"><strong><%= session.weather %></strong></div>
+  </div>
+  <div class="log-entry">
+    <div class="log-label">✈️ Aircraft:</div>
+    <div class="log-value"><strong><%= session.aircraft %></strong></div>
+  </div>
+  <div class="log-entry">
+    <div class="log-label">📝 Notes:</div>
+    <div class="log-value"><strong><%= session.notes || 'N/A' %></strong></div>
+  </div>
 
-    <section class="session-details-card">
-      <ul class="session-info-list">
-        <li><strong>🕒 Duration:</strong> <%= session.duration %> hour<%= session.duration > 1 ? 's' : '' %></li>
-        <li><strong>📍 Location:</strong> <%= session.location || 'N/A' %></li>
-        <li><strong>🎯 Focus Area:</strong> <%= session.focusArea || 'N/A' %></li>
-        <li><strong>📝 Notes:</strong> <%= session.notes || 'N/A' %></li>
-        <li><strong>👨‍🏫 Instructor:</strong> <%= session.instructor || 'N/A' %></li>
-        <li><strong>🌤 Weather:</strong> <%= session.weather || 'N/A' %></li>
-        <li><strong>🛩 Aircraft Type:</strong> <%= session.aircraft || 'N/A' %></li>
-      </ul>
-
-      <div class="session-actions">
-        <a href="/users/<%= userId %>/sessions/<%= session._id %>/edit" class="btn secondary-btn">✏️ Edit</a>
-        <form action="/users/<%= userId %>/sessions/<%= session._id %>?_method=DELETE" method="POST">
-          <button type="submit" class="btn danger-btn">🗑 Delete</button>
-        </form>
-      </div>
-    </section>
+  <div class="log-actions">
+    <a href="/users/<%= userId %>/sessions/<%= session._id %>/edit" class="btn btn-edit">✏️ Edit</a>
+    <form action="/users/<%= userId %>/sessions/<%= session._id %>?_method=DELETE" method="POST" style="display:inline;">
+      <button type="submit" class="btn btn-delete">🗑 Delete</button>
+    </form>
+    <button class="btn btn-print" onclick="window.print()">🖨️ Print</button>
+  </div>
+</section>
 
     <div class="center-text">
       <a href="/users/<%= userId %>/sessions" class="btn cta-btn">⬅ Back to Flight Sessions</a>
-    </div>
+    </div><br>
   </main>
 </body>
 </html>
