@@ -8,8 +8,12 @@
 </head>
 <body>
   <%- include('../partials/_navbar.ejs') %>
+    <div class="container">
+    <main class="centered-page">
   <h1>Create a new account!</h1>
-  <form action="/auth/sign-up" method="POST">
+  <div id="flightCard">
+  <form action="/auth/sign-up" method="POST" class="flight-form" >
+    
     <label for="username">Username:</label>
     <input type="text" name="username" id="username" required />
     <label for="password">Password:</label>
@@ -21,7 +25,16 @@
       id="confirmPassword"
       required 
     />
+    
     <button type="submit">Sign up</button>
+    <p>Have an account? <a href="/auth/sign-in">Sign in here</a></p>
+    </div>
+    </div>
+    
   </form>
+  
+  </div>
+  </main>
+  </div>
 </body>
 </html>

@@ -14,29 +14,30 @@
 <h1>New Milestone</h1>
 <section>
 <div id="flightCard">
-<form action="/users/<%= userId %>/milestones" method="POST">
+<form action="/users/<%= userId %>/milestones" method="POST" class="flight-form">
   <label>Type:</label>
-  <input type="text" name="type" required><br>
+  <input type="text" name="type" required>
 
   <label>Description:</label>
-  <textarea name="description"></textarea><br>
+  <textarea name="description"></textarea>
 
   <label>Date:</label>
-  <input type="date" name="date"><br>
+  <input type="date" name="date">
 
   <label>Status:</label>
   <select name="status">
     <option value="Pending">Pending</option>
     <option value="Complete">Complete</option>
-  </select><br><br>
-
-  <button type="submit">Create Milestone</button>
+  </select>
+<div class="cta-container">
+  <button type="submit"><strong>Create Milestone</strong></button>
+  </div>
 </form>
 </div>
-<br><br>
+
 <div class="cta-container">
   <a href="/users/<%= user._id %>/milestones" class="btn cta-btn">Back to Milestones</a>
-</div>
+</div><br>
 
 </section>
 </main>

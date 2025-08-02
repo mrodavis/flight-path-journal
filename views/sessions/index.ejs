@@ -18,14 +18,16 @@
   <a href="/users/<%= user._id %>/sessions/new" class="btn cta-btn">Log Session</a>
 </div>
 <ul>
-  <% sessions.forEach(s => { %>
+<% sessions.forEach(s => { %>
     <a href="/users/<%= userId %>/sessions/<%= s._id %>">
-    <div class="slot-box">
-    
-    <h2 class=""><strong><%= s.date.toDateString() %></strong> - <%= s.focusArea %></h2>
-  
-    </div></a>
-  <% }) %>
+  <div class="session-card">
+    <div class="session-details">
+      <p class="session-date"><%= s.date.toDateString() %></p>
+      <h2 class="session-title"><%= s.location %></h2>
+    </div>
+    <span class="session-badge">🛫 <%= s.focusArea %></span>
+  </div></a>
+<% }) %>
 </ul>
 </div>
 

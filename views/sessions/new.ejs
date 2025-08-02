@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New Flight Session</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -113,38 +112,34 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  const durationInput = document.getElementById('duration');
-  durationInput.addEventListener('blur', () => {
-    if (durationInput.value) revealNext();
-  });
+const fieldSteps = [
+  { id: 'duration', type: 'blur' },
+  { id: 'aircraft', type: 'blur' },
+  { id: 'focusCategory', type: 'change' },
+  { id: 'focusArea', type: 'change' },
+  { id: 'weather', type: 'blur' },
+  { id: 'location', type: 'blur' },
+  { id: 'instructor', type: 'blur' },
+  { id: 'rating', type: 'change' },
+  { id: 'notes', type: 'input', final: true }
+];
 
-  const aircraftInput = document.getElementById('aircraft');
-  aircraftInput.addEventListener('blur', () => {
-    if (aircraftInput.value) revealNext();
-  });
+fieldSteps.forEach((step, index) => {
+  const el = document.getElementById(step.id);
+  if (!el) return;
 
-  const locationInput = document.getElementById('location');
-  locationInput.addEventListener('input', () => {
-    if (locationInput.value) revealNext();
-  });
+  el.addEventListener(step.type, () => {
+    if (el.value) {
+      const nextStep = document.querySelectorAll('.reveal-step')[index];
+      if (nextStep) nextStep.classList.remove('hidden');
 
-  const instructorInput = document.getElementById('instructor');
-  instructorInput.addEventListener('input', () => {
-    if (instructorInput.value) revealNext();
+      if (step.final) {
+        document.getElementById('saveBtn')?.classList.remove('hidden');
+      }
+    }
   });
+});
 
-  const ratingInput = document.getElementById('rating');
-  ratingInput.addEventListener('input', () => {
-    if (ratingInput.value) revealNext();
-  });
-
-  const notesInput = document.getElementById('notes');
-  notesInput.addEventListener('input', () => {
-    if (notesInput.value) {
-        const saveSession = document.getElementById('saveBtn')
-        saveSession.classList.remove('hidden');
-    };
-  });
 
   const focusAreaMap = {
     core: [

@@ -10,13 +10,14 @@
   <%- include('../partials/_navbar.ejs') %>
 
   <div class="container">
+    <main class="centered-page">
     <h1>Sign In</h1>
-
+<div id="flightCard">
     <% if (typeof error !== 'undefined') { %>
       <p class="error"><%= error %></p>
     <% } %>
 
-    <form action="/auth/sign-in" method="POST" class="auth-form">
+    <form action="/auth/sign-in" method="POST" class="flight-form">
       <div>
         <label for="username">Username:</label><br />
         <input type="text" name="username" id="username" required />
@@ -26,11 +27,12 @@
         <label for="password">Password:</label><br />
         <input type="password" name="password" id="password" required />
       </div>
-
       <button type="submit">Sign In</button>
     </form>
 
     <p>Don’t have an account? <a href="/auth/sign-up">Sign up here</a></p>
+    </div>
+    </main>
   </div>
 </body>
 </html>

@@ -330,3 +330,47 @@ body.dark .nav-links a {
 .hidden {
   display: none;
 }
+/* <--Session Index Styling ---> */
+.session-card {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.session-card:hover {
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+}
+
+.session-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.session-date {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 6px;
+}
+
+.session-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #111;
+}
+
+.session-badge {
+  font-size: 0.75rem;
+  background-color: #e0f0ff;
+  color: #004ea0;
+  padding: 5px 12px;
+  border-radius: 9999px;
+  white-space: nowrap;
+}
