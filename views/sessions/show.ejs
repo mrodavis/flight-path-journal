@@ -74,5 +74,21 @@
       <a href="/users/<%= userId %>/sessions" class="btn cta-btn">⬅ Back to Flight Sessions</a>
     </div><br>
   </main><br>
+
+
+<% if (metar) { %>
+  <p><strong>Time:</strong> <%= metar.reportTime %></p>
+  <p><strong>Flight Category:</strong> N/A</p>
+  <p><strong>Wind:</strong> <%= metar.wdir %>° at <%= metar.wspd %> kt</p>
+  <p><strong>Visibility:</strong> <%= metar.visib %> sm</p>
+  <p><strong>Temperature:</strong> <%= metar.temp %> °C</p>
+  <p><strong>Altimeter:</strong> <%= (metar.altim / 100).toFixed(2) %> inHg</p>
+  <p><strong>Raw METAR:</strong> <code><%= metar.rawOb %></code></p>
+<% } else { %>
+  <p>⚠️ No current METAR data available for this location.</p>
+<% } %>
+
+
+
 </body>
 </html>

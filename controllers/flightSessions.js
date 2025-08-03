@@ -6,6 +6,8 @@ const ejs = require('ejs');
 const path = require('path');
 const { generateFlightLogId } = require('../utils/flightUtils');
 const User = require('../models/user'); // 
+const axios = require('axios'); // ← Add this line near your other imports
+const { fetchMetar } = require('../utils/weatherService'); // add this at the top
 
 
 
@@ -36,7 +38,23 @@ router.get('/:id', async (req, res) => {
     "Pattern Work": "🔁",
     "Checkride Prep": "✅"
   };
-  res.render('sessions/show.ejs', { session, userId: req.params.userId, tagIcons });
+    //Fetch METAR data
+  // const metar = await fetchMetar(session.location); 
+
+  let metar = null;
+
+try {
+  const station = session.location.toUpperCase(); // ICAO code like KJFK
+  const response = await axios.get(`https://aviationweather.gov/cgi-bin/data/metar.php?ids=${station}&format=json`);
+  if (Array.isArray(response.data) && response.data.length > 0) {
+    metar = response.data[0];
+  }
+} catch (error) {
+  console.error('Failed to fetch METAR:', error.message);
+}
+
+
+  res.render('sessions/show.ejs', { session, userId: req.params.userId, tagIcons, metar });
 });
 
 // EDIT
@@ -81,7 +99,7 @@ router.post('/', async (req, res) => {
 
   const user = await User.findById(req.params.userId);
   if (!user) throw new Error('User not found');
-  
+
   // Generate the custom log ID
   const logId = generateFlightLogId({
     date: req.body.date,
