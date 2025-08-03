@@ -5,28 +5,31 @@
   <title>Flight Session Details</title>
   <link rel="stylesheet" href="/css/style.css" />
   <title><%= session.date.toDateString() %> - Flight Log</title>
-  <style>
+<style>
   body {
     font-family: 'Courier New', monospace;
     background-color: #fffaf5;
     padding: 2rem;
     color: #333;
+    font-size: 12px;
   }
 
   .centered-page {
     border: 2px solid #ff5a1f;
     border-radius: 12px;
-    padding: 2rem;
-    max-width: 800px;
+    padding: 1.5rem;
+    max-width: 700px;
     margin: 0 auto;
     background-color: #fffdf9;
   }
 
   .page-title {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
     text-align: center;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
+    border-bottom: 2px solid #000;
+    padding-bottom: 0.25rem;
   }
 
   .page-title::after {
@@ -37,98 +40,99 @@
     font-style: italic;
     text-align: center;
     color: #777;
-    font-size: 14px;
-    margin-bottom: 1rem;
+    font-size: 12px;
+    margin-bottom: 0.75rem;
   }
 
   .tag-container {
     text-align: center;
     margin: 1rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
   }
 
   .tag {
     display: inline-block;
-    padding: 8px 12px;
-    margin: 5px;
-    font-size: 14px;
+    padding: 4px 10px;
+    font-size: 12px;
     background-color: #eee;
-    border: 1px solid #ddd;
+    border: 1px solid #ccc;
     border-radius: 20px;
     font-weight: bold;
   }
 
   .logbook {
     margin-top: 1rem;
+    border: 1px dashed #000;
+    padding: 1rem;
+    page-break-inside: avoid;
   }
 
   .log-entry {
-    display: flex;
-    justify-content: space-between;
-    padding: 8px 0;
+    display: grid;
+    grid-template-columns: 35% 65%;
+    font-size: 12px;
+    padding: 6px 0;
     border-bottom: 1px dashed #bbb;
-    font-size: 16px;
+    align-items: start;
+    word-break: break-word;
   }
 
   .log-label {
     font-weight: bold;
-    width: 30%;
+    text-align: left;
+    padding-right: 10px;
   }
 
   .log-value {
-    width: 65%;
     text-align: right;
+    font-weight: bold;
   }
 
-  .log-actions {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
+  .log-actions,
+  .btn,
+  .navbar,
+  a {
+    display: none !important;
+  }
+
+  footer {
+    text-align: center;
+    font-size: 10px;
     margin-top: 2rem;
+    color: #999;
   }
 
-  .btn {
-    border: none;
-    padding: 10px 16px;
-    font-size: 14px;
-    border-radius: 6px;
-    cursor: pointer;
-  }
-
-  .btn-edit {
-    background-color: #f2f2f2;
-    color: #333;
-    border: 1px solid #ccc;
-  }
-
-  .btn-delete {
-    background-color: #ff5a1f;
-    color: white;
-  }
-
-  .btn-download, .btn-print {
-    background-color: #ff5a1f;
-    color: white;
-  }
-
-  .btn-print i, .btn-download i {
-    margin-right: 5px;
-  }
-
+  /* Print overrides */
   @media print {
-    .btn, .log-actions, a {
-      display: none !important;
-    }
-
     body {
-      background: white;
+      background: #fff;
+      color: #000;
+      padding: 40px;
     }
 
     .centered-page {
       border: none;
       padding: 0;
     }
+
+    .tag {
+      border-color: #000;
+      background-color: #f3f3f3;
+    }
+
+    .log-entry {
+      font-size: 11px;
+    }
+
+    footer {
+      font-size: 10px;
+    }
   }
 </style>
+
 
 </head>
 <body>
@@ -136,68 +140,75 @@
 
   <main class="centered-page">
 <% const tagIcons = {
-  "Day Flight": "🌞",
-  "Night Flight": "🌙",
-  "Logged": "📘",
-  "Solo": "🧍‍♂️",
-  "Crosswind": "💨",
-  "Emergency Drill": "🚨",
-  "Simulator": "🖥️",
-  "Pattern Work": "🔁",
-  "Checkride Prep": "✅"
+  "Day Flight": "",
+  "Night Flight": "",
+  "Logged": "",
+  "Solo": "",
+  "Crosswind": "",
+  "Emergency Drill": "",
+  "Simulator": "",
+  "Pattern Work": "",
+  "Checkride Prep": ""
 } %>
- <h1 class="page-title">Flight Log: <%= new Date(session.date).toDateString() %> 🛫</h1>   
+ <h1 class="page-title">Flight Log: <%= session.logId %> 🛫</h1>   
 
 <section class="logbook">
 
 
-    <h1 class="page-title">Session on <%= new Date(session.date).toDateString() %> 🛫</h1>
-    <p class="session-badge-2"><%= session.location%>🚡 • <%=session.aircraft%>🛩️ • <%=session.duration %> hr<%= session.duration > 1 ? 's' : '' %>🕒</p><br>
+    
+    <p class="session-badge-2"><%= session.location%> • <%=session.aircraft%> • <%=session.duration %> hr<%= session.duration > 1 ? 's' : '' %></p>
 <div class="tag-container">
   <% if (session.tags && session.tags.length) { %>
     <% session.tags.forEach(tag => { %>
       <span class="tag">
-        <%= tagIcons[tag] || "🏷️" %> <%= tag %>
+        <%= tagIcons[tag] || "" %> <%= tag %>
       </span>
     <% }) %>
   <% } %>
-</div>
+</div><br>
     <div class="log-entry">
-    <div class="log-label">📅 Date:</div>
+    <div class="log-label">Date:</div>
     <div class="log-value"><strong><%= session.date.toDateString() %></strong></div>
   </div>
   <div class="log-entry">
-    <div class="log-label">📍 Location:</div>
+    <div class="log-label">Location:</div>
     <div class="log-value"><strong><%= session.location %></strong></div>
   </div>
   <div class="log-entry">
-    <div class="log-label">🕒 Duration:</div>
+    <div class="log-label">Duration:</div>
     <div class="log-value"><strong><%= session.duration %> hr<%= session.duration > 1 ? 's' : '' %></strong></div>
   </div>
   <div class="log-entry">
-    <div class="log-label">🎯 Focus:</div>
+    <div class="log-label">Focus:</div>
     <div class="log-value"><strong><%= session.focusArea %></strong></div>
   </div>
   <div class="log-entry">
-    <div class="log-label">🧑‍✈️ Instructor:</div>
+    <div class="log-label">Instructor:</div>
     <div class="log-value"><strong><%= session.instructor %></strong></div>
   </div>
   <div class="log-entry">
-    <div class="log-label">☁️ Weather:</div>
+    <div class="log-label">Weather:</div>
     <div class="log-value"><strong><%= session.weather %></strong></div>
   </div>
   <div class="log-entry">
-    <div class="log-label">✈️ Aircraft:</div>
+    <div class="log-label">Aircraft:</div>
     <div class="log-value"><strong><%= session.aircraft %></strong></div>
   </div>
   <div class="log-entry">
-    <div class="log-label">📝 Notes:</div>
+    <div class="log-label">Notes:</div>
     <div class="log-value"><strong><%= session.notes || 'N/A' %></strong></div>
   </div>
 
-</section>
-
+</section><br>
+<div style="margin-top: 40px;">
+  <div style="border-top: 1px solid #000; width: 250px; margin: 0 auto; text-align: center;">
+    <small>Pilot's Signature</small>
+  </div>
+</div>
 
   </main>
+  <footer style="text-align: center; font-size: 10px; margin-top: 40px;">
+  Generated via Flight Path Journal • www.flightpathjournal.app
+</footer>
 </body>
 </html>

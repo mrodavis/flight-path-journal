@@ -11,7 +11,7 @@
 
   <main class="centered-page">
 <%- include('../partials/_tagIcons'); %>
- <h1 class="page-title">Flight Log: <%= new Date(session.date).toDateString() %> 🛫</h1>   
+ <h1 class="page-title">Flight Log: <%= session.logId %> 🛫</h1>   
 
 <section class="logbook">
   <a href="/users/<%= userId %>/sessions/<%= session._id %>/download" class="btn btn-download">📄 PDF</a>
@@ -73,6 +73,6 @@
     <div class="center-text">
       <a href="/users/<%= userId %>/sessions" class="btn cta-btn">⬅ Back to Flight Sessions</a>
     </div><br>
-  </main>
+  </main><br>
 </body>
 </html>

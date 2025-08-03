@@ -42,6 +42,11 @@ const flightSessionSchema = new mongoose.Schema({
     type: [String],
     default: []
   },
+  logId: {
+  type: String,
+  required: true,
+  unique: true
+  },
   milestone: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Milestone',

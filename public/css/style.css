@@ -210,7 +210,19 @@ button:hover, .btn:hover {
   font-weight: 500;
   position: relative;
 }
+.navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
 
+.navbar li {
+  display: flex;
+  align-items: center;
+}
 .nav-links a::after {
   content: "";
   position: absolute;

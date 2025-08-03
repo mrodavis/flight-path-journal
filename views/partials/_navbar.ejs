@@ -2,7 +2,7 @@
   <div class="nav-container">
     <a href="/" class="nav-logo">Level Up & Take Off ✈️ </a>
     <ul class="nav-links">
-    <li><a href="/">Dashboard</a></li>
+    <li><a href="/">Dashboard🎚️</a></li>
     <% if (user && user._id) { %>
       <li><a href="/users/<%= user._id %>/sessions">My Sessions✈️ </a></li>
       <li><a href="/users/<%= user._id %>/milestones">My Milestones🏆</a></li>
@@ -14,6 +14,7 @@
 
 
     <button class="dark-toggle" onclick="toggleTheme()">🌓</button>
+    </div>
 <script>
   function toggleTheme() {
     const root = document.documentElement;
@@ -33,5 +34,5 @@
   })();
 </script>
 
-  </div>
+  
 </nav>

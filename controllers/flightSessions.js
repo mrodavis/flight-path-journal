@@ -4,6 +4,12 @@ const FlightSession = require('../models/flightSession');
 const pdf = require('html-pdf');
 const ejs = require('ejs');
 const path = require('path');
+const { generateFlightLogId } = require('../utils/flightUtils');
+const User = require('../models/user'); // 
+
+
+
+
 
 // INDEX
 router.get('/', async (req, res) => {
@@ -60,6 +66,9 @@ router.get('/:id/download', async (req, res) => {
 
 // CREATE
 router.post('/', async (req, res) => {
+  console.log('POST /sessions fired');
+  console.log('req.params.userId:', req.params.userId);
+  console.log('req.body:', req.body);
   let tags = req.body.tags;
   if (!Array.isArray(tags)) {
     tags = tags ? [tags] : [];
@@ -70,10 +79,21 @@ router.post('/', async (req, res) => {
     tags.push('Logged');
   }
 
+  const user = await User.findById(req.params.userId);
+  if (!user) throw new Error('User not found');
+  
+  // Generate the custom log ID
+  const logId = generateFlightLogId({
+    date: req.body.date,
+    airportCode: req.body.location,
+    username: user.username // ⬅️ make sure you have req.user populated
+  });
+
   const sessionData = {
     ...req.body,
     user: req.params.userId,
-    tags
+    tags,
+    logId
   };
     
   try {
@@ -81,7 +101,7 @@ router.post('/', async (req, res) => {
   res.redirect(`/users/${req.params.userId}/sessions`);
   } catch (err) {
     console.error(err);
-    res.render('sessions/new', { error: 'Failed to create session.' });
+    res.render('sessions/new.ejs', { error: 'Failed to create session.' });
   }
 });
 
