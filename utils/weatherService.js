@@ -1,36 +1,31 @@
-// utils/weatherService.js
 const axios = require('axios');
 
-async function fetchMetar(airportCode) {
+async function fetchMetar(station) {
   try {
-    const response = await axios.get('https://aviationweather.gov/api/data/metar', {
-      params: {
-        ids: airportCode.toUpperCase(),
-        format: 'json'
-      }
-    });
-
-    // This API returns an array of METAR objects
-    if (response.data && response.data.length > 0) {
-      const metar = response.data[0];
-      return {
-        rawText: metar.rawText,
-        stationId: metar.stationId,
-        observationTime: metar.observationTime,
-        tempC: metar.tempC,
-        windDirDegrees: metar.windDirDegrees,
-        windSpeedKt: metar.windSpeedKt,
-        visibilityStatuteMi: metar.visibilityStatuteMi,
-        altimInHg: metar.altimInHg,
-        flightCategory: metar.flightCategory
-      };
-    } else {
-      return null;
+    if (station.length === 3) {
+      station = `K${station}`;
     }
-  } catch (err) {
-    console.error("METAR Fetch Error:", err.message);
+
+    const response = await axios.get(`https://aviationweather.gov/api/data/metar?ids=${station}&format=json`);
+
+    const data = response.data[0];
+    if (!data) return null;
+
+    return {
+      stationId: data.icaoId || station,
+      time: data.reportTime || 'N/A',
+      flightCategory: data.flight_category || 'N/A',
+      windDir: data.wdir || 'N/A',
+      windSpeed: data.wspd || 'N/A',
+      visibility: data.visib || 'N/A',
+      temperature: data.temp || 'N/A',
+      altimeter: data.altim || 'N/A'
+    };
+  } catch (error) {
+    console.error('METAR fetch error:', error.message);
     return null;
   }
 }
+
 
 module.exports = { fetchMetar };

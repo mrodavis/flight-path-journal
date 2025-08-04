@@ -10,9 +10,10 @@
 </head>
 <body>
      <%- include('../partials/_navbar') %>
-     <main>
+     <main >
     <h1><%= milestone.type %></h1>
     <section>
+    <div class="session-form-wrapper">
 <div id="flightCard">
     <p><strong>Status:</strong> <%= milestone.status %></p>
     <p><strong>Date:</strong> <%= milestone.date ? milestone.date.toDateString() : 'N/A' %></p>
@@ -23,10 +24,12 @@
     <button type="submit">Delete</button>
     </form>
 </div>
-<br><br>
 <div class="cta-container">
   <a href="/users/<%= user._id %>/milestones" class="btn cta-btn">Back to Milestones</a>
 </div>
+</div>
+
+
 </section>
 </main>
 </body>

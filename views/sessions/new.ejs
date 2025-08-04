@@ -8,8 +8,9 @@
 </head>
 <body>
 <%- include('../partials/_navbar') %>
-<div id="flightCard">
-<main class="centered-page">
+
+<main class="session-form-wrapper">
+  <div id="flightCard" class="form-card">
 <br>
 <h1>📝 Log a New Flight Session</h1>
 <br>
@@ -107,10 +108,10 @@
 <div class="cta-container">
   <a href="/users/<%= user._id %>/sessions" class="btn cta-btn">Back to Flight Sessions</a>
 </div>
-</div>
 <div class="cta-container">
   <a href="/" class="btn cta-btn">Dashboard</a>
 </div><br>
+</div></main>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   const steps = document.querySelectorAll('.reveal-step');

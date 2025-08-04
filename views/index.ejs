@@ -15,44 +15,62 @@
   <!-- Dashboard Main -->
   <main class="centered-page">
     <h1 class="animated-plane">Welcome, <%= user.username %> 🚀</h1>
-    <section class="">
+    <section class="dashboard-flex">
 <!-- Flight Summary Card -->
 <div id="flightCard">
-  
-<div class="slot-box">
-  <a href="/users/<%= user._id %>/sessions" style="text-decoration: none; color: inherit;">
-    <div class="stat-label">Total Flight Hours ⏱</div>
-    <div id="hoursTotal" class="slot-value" data-count="<%= totalHours %>">0</div>
-  </a>
-</div>
-
-  
-<div class="slot-box">
-  <a href="/users/<%= user._id %>/milestones" style="text-decoration: none; color: inherit;">
-    <div class="stat-label">Milestones Completed 🏁</div>
-    <div id="milestoneTotal" class="slot-value" data-count="<%= totalMilestones %>">0</div>
-  </a>
-</div>
-
-    
-  <div class="slot-box">
-    <a href="/users/<%= user._id %>/progress" style="text-decoration: none; color: inherit;">
-    <div class="stat-label">Progress to Completion 🛫</div>
-    <div class="progress-bar-container">
-      
-      <div id="progressBar" class="progress-bar-fill" data-progress="<%= Math.min((totalHours / nextMilestoneThreshold) * 100, 100).toFixed(0) %>"></div>
+  <div class="flight-stats-grid">
+    <div class="slot-box">
+      <a href="/users/<%= user._id %>/sessions" style="text-decoration: none; color: inherit;">
+        <div class="stat-label">Total Flight <br>Hours <span class="icon">🕒</span></div>
+        <div id="hoursTotal" class="slot-value" data-count="<%= totalHours %>">0</div>
+      </a>
     </div>
-    <div id="progressLabel" class="slot-value">0%</div>
-  </div></a>
-  <div class="cta-container">
-  <a href="/users/<%= user._id %>/sessions/new" class="btn cta-btn">Log Session</a>
+
+      
+    <div class="slot-box">
+      <a href="/users/<%= user._id %>/milestones" style="text-decoration: none; color: inherit;">
+        <div class="stat-label">Milestones <br>Completed <span class="icon">🏆</span></div>
+        <div id="milestoneTotal" class="slot-value" data-count="<%= totalMilestones %>">0</div>
+      </a>
+    </div>
+  </div>
+        
+      <div class="progress-card">
+        <a href="/users/<%= user._id %>/progress" style="text-decoration: none; color: inherit;">
+        <div class="stat-label">Progress to Completion 🛫</div>
+        <div class="progress-bar-container">
+          
+          <div id="progressBar" class="progress-bar-fill" data-progress="<%= Math.min((totalHours / nextMilestoneThreshold) * 100, 100).toFixed(0) %>"></div>
+        </div>
+        <div id="progressLabel" class="slot-value">0%</div>
+      </div></a>
+      <div class="cta-container">
+      <a href="/users/<%= user._id %>/sessions/new" class="btn cta-btn">Log Session</a>
+    </div>
+  
 </div>
-</div>
 
-
-
+    <div id="metarCard">
+      <h2>Current METAR</h2>
+      <form method="GET" action="/">
+        <label for="airport-input">Airport Code:</label>
+        <input id="airport-input" name="station" type="text" value="<%= metar?.stationId || 'JFK' %>" maxlength="4" />
+        <button type="submit">Update</button>
+      </form>
+      <br />
+      <% if (metar) { %>
+      <p><strong>🕒</strong> <%= metar.time %></p>
+      <p><strong>💨</strong> Wind: <%= metar.windDir %>° at <%= metar.windSpeed %> kt</p>
+      <p><strong>👁️</strong> Visibility: <%= metar.visibility %> sm</p>
+      <p><strong>🌡️</strong> Temp: <%= metar.temperature %> °C</p>
+      <p><strong>📟</strong> Altimeter: <%= metar.altimeter %> inHg</p>
+      <% } else { %>
+        <p>METAR data not available.</p>
+      <% } %>
+    </div>
     </section>
   </main>
+
 
 
 </body>

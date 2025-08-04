@@ -20,7 +20,7 @@ const Milestone = require("./models/milestone");
 const authController = require("./controllers/auth.js");
 const sessionController = require("./controllers/flightSessions");
 const milestoneController = require("./controllers/milestones");
-
+const weatherRoutes = require('./controllers/weather');
 
 
 // DB Connection
@@ -52,7 +52,7 @@ app.use("/users/:userId/sessions", sessionController);
 app.use("/users/:userId/milestones", milestoneController);
 const dashboardRoutes = require('./routes/index');
 app.use('/', dashboardRoutes);
-
+app.use('/weather', weatherRoutes);
 
 // Home
 app.get("/", async (req, res) => {
