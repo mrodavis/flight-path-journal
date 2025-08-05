@@ -885,3 +885,13 @@ body.dark .session-card:hover {
   font-weight: 600;
   color: #333;
 }
+
+.auth-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 80px); /* adjust height based on navbar height */
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  max-width: 960px;
+}
