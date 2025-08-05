@@ -895,3 +895,84 @@ body.dark .session-card:hover {
   padding-bottom: 2rem;
   max-width: 960px;
 }
+
+/* Mobile responsiveness for Sign In screen */
+@media (max-width: 768px) {
+  #flightCard {
+    width: 90%;
+    padding: 2rem 1rem;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .flight-form input,
+  .flight-form button {
+    font-size: 1rem;
+  }
+
+  .flight-form {
+    gap: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  #flightCard {
+    padding: 1.5rem 1rem;
+    border-width: 1px;
+  }
+
+  .flight-form input,
+  .flight-form button {
+    font-size: 0.95rem;
+    padding: 0.5rem;
+  }
+
+  .flight-form label {
+    font-size: 0.9rem;
+  }
+
+  .flight-form a {
+    font-size: 0.9rem;
+  }
+}
+
+/* === Hamburger Menu === */
+.hamburger {
+  display: none;
+  font-size: 1.8rem;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background-color: #000;
+    gap: 1rem;
+    padding: 1rem 0;
+    display: none;
+  }
+
+  .nav-links.show {
+    display: flex;
+  }
+
+  .nav-links a {
+    text-align: center;
+    font-size: 1.1rem;
+  }
+}

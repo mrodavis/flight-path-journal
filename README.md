@@ -68,6 +68,41 @@ These resources were consulted and used as references during development:
 - 📥 Future feature: PDF downloads of logged sessions
 
 ---
+## 🌤 METAR Weather Data
+This app fetches real-time METAR (Meteorological Aerodrome Report) data directly from the National Weather Service Aviation Weather Center (AWC), an official government source.
+
+We use their Text Data Server (TDS) endpoint to retrieve METAR data based on ICAO airport codes.
+
+🔗 API Endpoint Used:
+
+[Aviation Weather](https://aviationweather.gov/cgi-bin/data/metar.php?ids=KJFK&format=raw&hours=0&taf=off&layout=on)
+ids= specifies the ICAO code (e.g. KJFK)
+
+format=raw returns the unparsed METAR string
+
+hours=0 fetches the latest report
+
+taf=off disables TAF (Terminal Aerodrome Forecast) data
+
+layout=on provides plain text formatting
+
+📦 Data includes:
+Raw METAR string (e.g., KJFK 051951Z 18012KT 10SM FEW050 BKN250 30/16 A2992)
+
+Wind speed and direction
+
+Visibility
+
+Cloud layers
+
+Temperature and dew point
+
+Altimeter settings
+
+Flight category inference (e.g., VFR, IFR)
+
+⚠️ Note: This is a public, no-authentication API provided by NOAA and NWS, and is suitable for non-commercial educational use.
+---
 
 ## 🎯 Next Steps
 
