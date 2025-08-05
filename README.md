@@ -52,7 +52,7 @@ These resources were consulted and used as references during development:
 - [Stack Overflow](https://stackoverflow.com/)
 - [EJS Documentation](https://ejs.co/)
 - [MongoDB Mongoose Docs](https://mongoosejs.com/)
-- [Bootstrap Icons](https://icons.getbootstrap.com/) (if used)
+- [Bootstrap Icons](https://icons.getbootstrap.com/)
 - [Flight Training Milestone Guidelines (FAA)](https://www.faa.gov/)
 - [GeeksforGeeks JavaScript & Express Articles](https://www.geeksforgeeks.org/)
 - [ChatGPT by OpenAI](https://chat.openai.com/) — code debugging and guidance
