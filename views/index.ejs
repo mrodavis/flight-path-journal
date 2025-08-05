@@ -50,24 +50,29 @@
   
 </div>
 
-    <div id="metarCard">
-      <h2>Current METAR</h2>
-      <form method="GET" action="/">
-        <label for="airport-input">Airport Code:</label>
-        <input id="airport-input" name="station" type="text" value="<%= metar?.stationId || 'JFK' %>" maxlength="4" />
-        <button type="submit">Update</button>
-      </form>
-      <br />
-      <% if (metar) { %>
-      <p><strong>🕒</strong> <%= metar.time %></p>
-      <p><strong>💨</strong> Wind: <%= metar.windDir %>° at <%= metar.windSpeed %> kt</p>
-      <p><strong>👁️</strong> Visibility: <%= metar.visibility %> sm</p>
-      <p><strong>🌡️</strong> Temp: <%= metar.temperature %> °C</p>
-      <p><strong>📟</strong> Altimeter: <%= metar.altimeter %> inHg</p>
-      <% } else { %>
-        <p>METAR data not available.</p>
-      <% } %>
-    </div>
+<div id="metarCard">
+  <h2 class="metar-header">🌤️ Current METAR</h2>
+  <form method="GET" action="/">
+    <label for="airport-input">Airport Code:</label>
+    <input id="airport-input" name="station" type="text" value="<%= metar?.stationId || 'JFK' %>" maxlength="4" />
+    <button type="submit">Update</button>
+  </form>
+
+  <br />
+
+  <% if (metar) { %>
+    <ul class="metar-data-list">
+      <li><span>🕒 Time:</span> <%= metar.time %></li>
+      <li><span>💨 Wind:</span> <%= metar.windDir %>° at <%= metar.windSpeed %> kt</li>
+      <li><span>👁️ Visibility:</span> <%= metar.visibility %> sm</li>
+      <li><span>🌡️ Temp:</span> <%= metar.temperature %> °C</li>
+      <li><span>📟 Altimeter:</span> <%= metar.altimeter %> inHg</li>
+    </ul>
+  <% } else { %>
+    <p>METAR data not available.</p>
+  <% } %>
+</div>
+
     </section>
   </main>
 

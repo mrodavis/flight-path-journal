@@ -841,3 +841,43 @@ body.dark .session-card:hover {
   cursor: pointer;
   border-radius: 5px;
 }
+
+.metar-header {
+  font-size: 1.4rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  color: var(--fg);
+}
+
+.metar-data-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.metar-data-list li {
+  background-color: #f8f8f8;
+  padding: 0.6rem 0.9rem;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.04);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Inter', sans-serif;
+  transition: background-color 0.2s ease;
+}
+
+.metar-data-list li:hover {
+  background-color: #f0f0f0;
+}
+
+.metar-data-list span {
+  font-weight: 600;
+  color: #333;
+}
