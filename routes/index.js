@@ -3,6 +3,8 @@ const router = express.Router();
 const FlightSession = require("../models/flightSession");
 const Milestone = require("../models/milestone");
 const { fetchMetar } = require('../utils/weatherService');
+const progressRouter = require('./progress');
+
 
 router.get("/", async (req, res) => {
   try {
@@ -41,6 +43,8 @@ router.get("/", async (req, res) => {
     res.status(500).send("Error loading dashboard.");
   }
 });
+
+router.use('/users/:userId/progress', progressRouter);
 
 
 module.exports = router;

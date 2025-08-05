@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Progress to Completion</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <%- include('../partials/_navbar') %>
+
+
+<main class="centered-page">
+  <section class="session-form-wrapper">
+    <div class="form-card">
+      <h1>🛫 Progress to Completion</h1>
+
+      <p class="session-badge-2">This section will track your journey toward becoming a certified pilot.</p>
+
+      <div class="progress-card">
+        <div class="stat-label">Placeholder Progress Bar</div>
+        <div class="progress-bar-container">
+          <div class="progress-bar-fill" style="width: 50%;"></div>
+        </div>
+        <div class="progress-label">50% Complete</div>
+      </div>
+
+      <br>
+
+      <ul class="session-info-list">
+        <li>✅ Total Hours Logged: <strong>40/80 hours</strong></li>
+        <li>✅ Milestones Completed: <strong>5/10</strong></li>
+        <li>🚧 Next Milestone: <strong>Cross-Country Solo</strong></li>
+        <li>📝 Remaining: <strong>Night Flights, Practical Test Prep</strong></li>
+      </ul>
+
+      <div class="cta-container">
+        <a href="/users/<%= user._id %>/sessions" class="btn cta-btn">View Flight Sessions</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+</body>
+</html>

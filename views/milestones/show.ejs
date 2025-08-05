@@ -11,22 +11,24 @@
   <%- include('../partials/_navbar') %>
 
   <main class="session-form-wrapper">
-    <div id="flightCard" class="form-card">
-      <h1>🌟 <%= milestone.type %></h1><br>
+    <div class="session-details-card">
+      <h1 style="text-align:center;">🌟 <%= milestone.type %></h1>
 
-      <p><strong>Status:</strong> <%= milestone.status %></p>
-      <p><strong>Date:</strong> <%= milestone.date ? milestone.date.toDateString() : 'N/A' %></p>
-      <p><strong>Description:</strong> <%= milestone.description || 'No description provided.' %></p>
-      
-      <div class="cta-container">
-        <a href="/users/<%= userId %>/milestones/<%= milestone._id %>/edit" class="btn cta-btn">✏️ Edit</a>
+      <ul class="session-info-list">
+        <li><strong>Status:</strong> <span class="session-badge"><%= milestone.status %></span></li>
+        <li><strong>Date:</strong> <%= milestone.date ? milestone.date.toDateString() : 'N/A' %></li>
+        <li><strong>Description:</strong> <br> <em><%= milestone.description || 'No description provided.' %></em></li>
+      </ul>
+
+      <div class="session-actions">
+        <a href="/users/<%= userId %>/milestones/<%= milestone._id %>/edit" class="btn btn-edit">✏️ Edit</a>
         <form action="/users/<%= userId %>/milestones/<%= milestone._id %>?_method=DELETE" method="POST" style="display:inline;">
-          <button type="submit" class="btn cta-btn">🗑 Delete</button>
+          <button type="submit" class="btn btn-delete">🗑 Delete</button>
         </form>
       </div>
 
-      <div class="cta-container">
-        <a href="/users/<%= userId %>/milestones" class="btn cta-btn">⬅ Back to Milestones</a>
+      <div class="center-text">
+        <a href="/users/<%= userId %>/milestones" class="btn-outline">⬅ Back to Milestones</a>
       </div>
     </div>
   </main>

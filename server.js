@@ -8,6 +8,8 @@ const methodOverride = require("method-override");
 const morgan = require("morgan");
 
 const app = express();
+app.set('view engine', 'ejs');
+
 
 // Middleware
 const passUserToView = require("./middleware/pass-user-to-view");
@@ -21,7 +23,7 @@ const authController = require("./controllers/auth.js");
 const sessionController = require("./controllers/flightSessions");
 const milestoneController = require("./controllers/milestones");
 const weatherRoutes = require('./controllers/weather');
-
+const progressRouter = require('./routes/progress');
 
 // DB Connection
 mongoose.connect(process.env.MONGODB_URI);
@@ -53,6 +55,7 @@ app.use("/users/:userId/milestones", milestoneController);
 const dashboardRoutes = require('./routes/index');
 app.use('/', dashboardRoutes);
 app.use('/weather', weatherRoutes);
+
 
 // Home
 app.get("/", async (req, res) => {
