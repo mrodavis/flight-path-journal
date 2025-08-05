@@ -1,40 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Flight Session</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/css/dashboard.css">
-    <link rel="stylesheet" href="/css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Flight Session</title>
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <%- include('../partials/_navbar') %>
-<main>
-<h1>Edit Flight Session</h1>
-<section>
-<div id="flightCard">
-<form action="/users/<%= userId %>/sessions/<%= session._id %>?_method=PUT" method="POST">
-  <label>Date:</label>
-  <input type="date" name="date" value="<%= session.date.toISOString().split('T')[0] %>" required><br>
+<%- include('../partials/_navbar') %>
 
-  <label>Duration (hours):</label>
-  <input type="number" name="duration" value="<%= session.duration %>" required><br>
+<main class="session-form-wrapper">
+  <div id="flightCard" class="form-card">
+    <br>
+    <h1>✏️ Edit Flight Session</h1>
+    <br>
+    <form action="/users/<%= userId %>/sessions/<%= session._id %>?_method=PUT" method="POST" class="flight-form">
 
-  <label>Focus Area:</label>
-  <input type="text" name="focusArea" value="<%= session.focusArea %>" required><br>
+      <label for="date">Date of Session:</label>
+      <input type="date" name="date" id="date" value="<%= session.date.toISOString().split('T')[0] %>" required />
 
-  <label>Notes:</label>
-  <textarea name="notes"><%= session.notes %></textarea><br>
+      <label for="duration">Session Duration (hours):</label>
+      <input type="number" name="duration" id="duration" step="0.1" value="<%= session.duration %>" required />
 
-  <button type="submit">Update Session</button>
-</form>
-</div>
-<br><br>
-<div class="cta-container">
-  <a href="/users/<%= user._id %>/sessions/new" class="btn cta-btn">Log Session</a>
-</div>
-</section>
+      <label for="aircraft">Aircraft Type:</label>
+      <input type="text" name="aircraft" id="aircraft" value="<%= session.aircraft %>" required />
+
+      <label for="focusCategory">Focus Area Category:</label>
+      <select name="focusCategory" id="focusCategory" required>
+        <option value="" disabled>Select category</option>
+        <option value="core" <%= session.focusCategory === 'core' ? 'selected' : '' %>>Core Flight Skills</option>
+        <option value="navigation" <%= session.focusCategory === 'navigation' ? 'selected' : '' %>>Navigation & Instruments</option>
+        <option value="decision" <%= session.focusCategory === 'decision' ? 'selected' : '' %>>Decision-Making & Safety</option>
+        <option value="technical" <%= session.focusCategory === 'technical' ? 'selected' : '' %>>Systems & Technical Skills</option>
+        <option value="evaluation" <%= session.focusCategory === 'evaluation' ? 'selected' : '' %>>Test Prep / Evaluation</option>
+      </select>
+
+      <div id="focusAreaContainer">
+        <label for="focusArea">Focus Area:</label>
+        <select name="focusArea" id="focusArea" required>
+          <option value="" disabled>Select focus area</option>
+          <!-- Options will be populated dynamically -->
+        </select>
+      </div>
+
+      <label for="weather">Weather Conditions:</label>
+      <input type="text" name="weather" id="weather" value="<%= session.weather %>" />
+
+      <label for="location">Airport / Location:</label>
+      <input type="text" name="location" id="location" value="<%= session.location %>" />
+
+      <label for="instructor">Instructor Name:</label>
+      <input type="text" name="instructor" id="instructor" value="<%= session.instructor %>" />
+
+      <label for="rating">Self Rating (1–5):</label>
+      <select name="rating" id="rating">
+        <option value="" disabled>Select one</option>
+        <% for (let i = 1; i <= 5; i++) { %>
+          <option value="<%= i %>" <%= session.rating == i ? 'selected' : '' %>><%= i %> - <%= ['Poor', 'Fair', 'Good', 'Great', 'Excellent'][i - 1] %></option>
+        <% } %>
+      </select>
+
+      <label for="notes">Notes (optional):</label>
+      <textarea name="notes" id="notes" rows="4"><%= session.notes %></textarea>
+
+      <!-- Tags -->
+      <div class="form-group">
+        <label>Tags:</label><br>
+        <% const tagOptions = ['Day Flight', 'Night Flight', 'Dual Flight', 'Solo Flight']; %>
+        <% tagOptions.forEach(tag => { %>
+          <label><input type="checkbox" name="tags" value="<%= tag %>" <%= session.tags?.includes(tag) ? 'checked' : '' %>> <%= tag %></label><br>
+        <% }); %>
+      </div>
+
+      <div class="cta-container">
+        <button type="submit" class="btn cta-btn">Update Session</button>
+      </div>
+    </form>
+
+    <br><br>
+    <div class="cta-container">
+      <a href="/users/<%= userId %>/sessions" class="btn cta-btn">Back to Flight Sessions</a>
+    </div>
+    <div class="cta-container">
+      <a href="/" class="btn cta-btn">Dashboard</a>
+    </div>
+    <br>
+  </div>
 </main>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const focusAreaMap = {
+      core: [
+        "Takeoff & Landing Practice",
+        "Steep Turns",
+        "Slow Flight",
+        "Stalls & Stall Recovery",
+        "Ground Reference Maneuvers",
+        "Emergency Procedures",
+        "Crosswind Techniques"
+      ],
+      navigation: [
+        "Navigation (Pilotage/Dead Reckoning)",
+        "VOR Navigation / GPS Navigation",
+        "Cross-Country Flight Planning",
+        "Instrument Flying (Basic Attitude Flying)",
+        "DME Arcs & Holding Patterns"
+      ],
+      decision: [
+        "Aeronautical Decision Making (ADM)",
+        "Situational Awareness",
+        "Risk Management",
+        "Weight & Balance / Performance Calculations"
+      ],
+      technical: [
+        "Radio Communications",
+        "Preflight Inspection / Systems Check",
+        "Fuel Management",
+        "Airspace & Weather Interpretation"
+      ],
+      evaluation: [
+        "Mock Checkride / Oral Exam Practice",
+        "Stage Check Review",
+        "Solo Endorsement Prep",
+        "Night Flight Training",
+        "Spin Awareness (for CFI candidates)"
+      ]
+    };
+
+    const focusCategory = document.getElementById('focusCategory');
+    const focusArea = document.getElementById('focusArea');
+
+    function populateFocusAreas(category) {
+      focusArea.innerHTML = '<option value="" disabled>Select focus area</option>';
+      if (focusAreaMap[category]) {
+        focusAreaMap[category].forEach(area => {
+          const option = document.createElement('option');
+          option.value = area;
+          option.textContent = area;
+          if ("<%= session.focusArea %>" === area) {
+            option.selected = true;
+          }
+          focusArea.appendChild(option);
+        });
+      }
+    }
+
+    focusCategory?.addEventListener('change', () => {
+      populateFocusAreas(focusCategory.value);
+    });
+
+    // Trigger population on page load
+    if (focusCategory?.value) {
+      populateFocusAreas(focusCategory.value);
+    }
+  });
+</script>
+
 </body>
 </html>
