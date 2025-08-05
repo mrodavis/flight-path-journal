@@ -155,7 +155,7 @@ button:hover, .btn:hover {
 .stat-card p {
   margin-top: 0.5rem;
   font-size: 2rem;
-  color: #f97316; /* Tailwind orange-500/600 */
+  color: #e50914; /* Tailwind orange-500/600 */
   font-weight: bold;
 }
 /* === Progress Bar === */
@@ -432,7 +432,7 @@ body.dark .nav-links a {
   max-width: 600px;
   background: white;
   padding: 2rem;
-  border: 2px solid orange;
+  border: 2px solid #e50914;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -801,7 +801,7 @@ body.dark .session-card:hover {
 
 
 #metarCard {
-  border: 2px solid #f60;
+  border: 2px solid #e50914;
   border-radius: 10px;
   padding: 1.5rem;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
@@ -834,7 +834,7 @@ body.dark .session-card:hover {
 }
 
 #metarCard button {
-  background-color: #f60;
+  background-color: #e50914;
   color: white;
   border: none;
   padding: 0.4rem 0.8rem;
