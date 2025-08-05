@@ -76,30 +76,31 @@ We use their Text Data Server (TDS) endpoint to retrieve METAR data based on ICA
 🔗 API Endpoint Used:
 
 [Aviation Weather](https://aviationweather.gov/cgi-bin/data/metar.php?ids=KJFK&format=raw&hours=0&taf=off&layout=on)
-ids= specifies the ICAO code (e.g. KJFK)
 
-format=raw returns the unparsed METAR string
+- `ids=` specifies the ICAO code (e.g. KJFK)
 
-hours=0 fetches the latest report
+- `format=raw` returns the unparsed METAR string
 
-taf=off disables TAF (Terminal Aerodrome Forecast) data
+- `hours=0` fetches the latest report
 
-layout=on provides plain text formatting
+- `taf=off` disables TAF (Terminal Aerodrome Forecast) data
+
+- `layout=on` provides plain text formatting
 
 📦 Data includes:
-Raw METAR string (e.g., KJFK 051951Z 18012KT 10SM FEW050 BKN250 30/16 A2992)
+- Raw METAR string (e.g., `KJFK 051951Z 18012KT 10SM FEW050 BKN250 30/16 A2992`)
 
-Wind speed and direction
+- Wind speed and direction
 
-Visibility
+- Visibility
 
-Cloud layers
+- Cloud layers
 
-Temperature and dew point
+- Temperature and dew point
 
-Altimeter settings
+- Altimeter settings
 
-Flight category inference (e.g., VFR, IFR)
+- Flight category inference (e.g., VFR, IFR)
 
 ⚠️ Note: This is a public, no-authentication API provided by NOAA and NWS, and is suitable for non-commercial educational use.
 ---
